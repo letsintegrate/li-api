@@ -39,6 +39,9 @@ gem 'her',                              '~> 0.8.1'
 gem 'active_model_serializers',         github: 'rails-api/active_model_serializers'
 gem 'active_model_serializers-jsonapi_embedded_records_deserializer', '0.1.1'
 
+# Validations
+gem 'email_validator',                  '~> 1.6'
+
 ###############################################
 # Development dependencies
 ###############################################
@@ -60,6 +63,9 @@ group :development, :test do
   # Test factories and dummy data
   gem 'factory_girl_rails',             '~> 4.5.0'
   gem 'ffaker',                         '~> 2.1.0'
+
+  # Time testing
+  gem 'timecop',                        '~> 0.8.1'
 
   # Guard
   gem 'guard',                          '~> 2.13.0',  require: false

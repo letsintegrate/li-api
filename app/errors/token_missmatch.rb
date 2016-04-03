@@ -1,0 +1,2 @@
+class TokenMissmatch < StandardError
+end
