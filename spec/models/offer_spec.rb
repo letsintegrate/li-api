@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Offer, type: :model do
   subject { FactoryGirl.build :offer }
 
-  let(:location) { FactoryGirl.create :location }
+  let(:location) { FactoryGirl.build :location }
+  let(:offer_time) { FactoryGirl.build :offer_time }
 
   # Relationships
   it { should have_many(:locations).through(:offer_locations) }
@@ -20,6 +21,8 @@ RSpec.describe Offer, type: :model do
   it { should_not allow_value('john.example.com').for(:email) }
   it { should allow_value([location]).for(:locations) }
   it { should_not allow_value([]).for(:locations) }
+  it { should allow_value([offer_time]).for(:offer_times) }
+  it { should_not allow_value([]).for(:offer_times) }
 
   # Methods
   it { should respond_to(:confirm!).with(1).argument }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403114938) do
+ActiveRecord::Schema.define(version: 20160403180231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 20160403114938) do
   add_index "offer_locations", ["location_id"], name: "index_offer_locations_on_location_id", using: :btree
   add_index "offer_locations", ["offer_id"], name: "index_offer_locations_on_offer_id", using: :btree
 
+  create_table "offer_times", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "offer_id"
+    t.datetime "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "offer_times", ["offer_id"], name: "index_offer_times_on_offer_id", using: :btree
+
   create_table "offers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "email"
     t.string   "confirmation_token"
@@ -46,4 +55,5 @@ ActiveRecord::Schema.define(version: 20160403114938) do
 
   add_foreign_key "offer_locations", "locations"
   add_foreign_key "offer_locations", "offers"
+  add_foreign_key "offer_times", "offers"
 end
