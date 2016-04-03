@@ -1,0 +1,25 @@
+db:
+  image: postgres:9.4.1
+
+web:
+  build: .
+  command: rails server --port 3000 --binding 0.0.0.0
+  dns:
+    - 8.8.4.4
+    - 8.8.8.8
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  volumes:
+    - .:/usr/src/app
+  volumes_from:
+    - bundle
+  environment:
+    - DISABLE_SPRING=true
+
+bundle:
+  image: letsintegrate_web
+  command: echo "I'm a little data container, short and stout..."
+  volumes:
+    - /bundle
