@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Offers", type: :request do
-  let(:offer) { FactoryGirl.create :offer }
+  let(:offer) { FactoryGirl.create :offer, :confirmed }
   let(:location) { FactoryGirl.create :location }
 
   before(:each) { offer }
@@ -80,6 +80,24 @@ RSpec.describe "Offers", type: :request do
     it 'works' do
       get v1_offer_path(id: offer.id)
       expect(response).to have_http_status(200)
+    end
+
+    it 'fails for not confirmed records' do
+      offer = FactoryGirl.create :offer
+      get v1_offer_path(id: offer.id)
+      expect(response).to have_http_status(404)
+    end
+  end
+
+  describe '#confirm' do
+    it 'works' do
+      patch confirm_v1_offer_path(id: offer.id, token: offer.confirmation_token)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'fails with invalid token' do
+      patch confirm_v1_offer_path(id: offer.id, token: 'foo')
+      expect(response).to be_unprocessable
     end
   end
 end

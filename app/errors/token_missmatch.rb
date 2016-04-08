@@ -1,2 +1,2 @@
-class TokenMissmatch < StandardError
+class TokenMissmatch < ActiveRecord::RecordInvalid
 end

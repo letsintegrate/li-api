@@ -20,10 +20,12 @@ RSpec.describe Appointment, type: :model do
   end
 
   # Relationships
+  it { should belong_to :location }
   it { should belong_to :offer }
   it { should belong_to :offer_time }
 
   # Validations
+  it { should validate_presence_of :location }
   it { should validate_presence_of :offer }
   it { should validate_presence_of :offer_time }
   it { should validate_presence_of :email }

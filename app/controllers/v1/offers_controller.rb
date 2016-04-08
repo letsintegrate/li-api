@@ -3,7 +3,8 @@ module V1
     before_action :set_offer, only: %i(show)
 
     def index
-      render json: get_index(Offer), each_serializer: OfferSerializer
+      @offers = get_index(Offer).confirmed.not_taken
+      render json: @offers, each_serializer: OfferSerializer
     end
 
     def create
@@ -15,10 +16,16 @@ module V1
       render json: @offer, serializer: OfferSerializer
     end
 
+    def confirm
+      @offer = Offer.find(params[:id])
+      @offer.confirm!(params[:token])
+      render json: @offer, serializer: OfferSerializer
+    end
+
     private
 
     def set_offer
-      @offer = Offer.find(params[:id])
+      @offer = Offer.confirmed.find(params[:id])
     end
 
     def offer_params

@@ -3,6 +3,7 @@ class CreateAppointments < ActiveRecord::Migration
     create_table :appointments, id: :uuid do |t|
       t.references :offer_time, index: true, foreign_key: true, type: :uuid
       t.references :offer, index: true, foreign_key: true, type: :uuid
+      t.references :location, index: true, foreign_key: true, type: :uuid
       t.string :email
       t.string :confirmation_token
       t.datetime :confirmed_at, null: true, default: nil

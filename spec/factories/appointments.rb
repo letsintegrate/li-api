@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :appointment do
-    offer_time
-    offer { offer_time.offer }
+    offer_time { offer.offer_times.first }
+    offer
+    location { offer.locations.first }
     email { FFaker::Internet.email }
 
     trait :confirmed do

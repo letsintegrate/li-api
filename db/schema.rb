@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160403185538) do
   create_table "appointments", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "offer_time_id"
     t.uuid     "offer_id"
+    t.uuid     "location_id"
     t.string   "email"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160403185538) do
     t.datetime "updated_at",         null: false
   end
 
+  add_index "appointments", ["location_id"], name: "index_appointments_on_location_id", using: :btree
   add_index "appointments", ["offer_id"], name: "index_appointments_on_offer_id", using: :btree
   add_index "appointments", ["offer_time_id"], name: "index_appointments_on_offer_time_id", using: :btree
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160403185538) do
     t.datetime "updated_at",         null: false
   end
 
+  add_foreign_key "appointments", "locations"
   add_foreign_key "appointments", "offer_times"
   add_foreign_key "appointments", "offers"
   add_foreign_key "offer_locations", "locations"

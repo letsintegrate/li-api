@@ -1,6 +1,6 @@
 module V1
   class OfferSerializer < BaseSerializer
-    attributes :id, :email
+    attributes :id, :email, :confirmed
 
     # Relationships
     has_many_link :locations, filter: :offer_locations_offer_id_eq
@@ -9,6 +9,10 @@ module V1
     # Attributes
     def email
       ''
+    end
+
+    def confirmed
+      object.confirmed?
     end
   end
 end
