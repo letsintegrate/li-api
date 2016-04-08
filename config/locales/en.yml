@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  offer_mailer:
+    confirmation:
+      subject: 'Confirm the e-mail address of your offer'

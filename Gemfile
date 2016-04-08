@@ -58,7 +58,7 @@ group :development, :test do
 
   # RSpec testing instead of Test::Unit
   gem 'rspec-rails',                    '~> 3.4.0'
-  #gem 'rspec-apib',                     '~> 0.1.4'
+  gem 'rspec-apib',                     github: 'spieker/rspec-apib'
 
   # Test factories and dummy data
   gem 'factory_girl_rails',             '~> 4.5.0'

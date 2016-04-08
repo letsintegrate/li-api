@@ -1,0 +1,270 @@
+FORMAT: 1A
+HOST: https://letsintegrate.de/api
+
+# Let's integrate
+
+
+# Group Location
+
+## GET /v1/locations(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + location (optional, string, `{}`) ...
+    + ids (optional, string, `a5ef5478-8611-426e-8b08-b9aa03667614`) ...
+    + filter (optional, string, `{"offer_locations_offer_id_eq"=>"dd0db1d0-761e-48a4-982d-0b69c435d97c"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"b92b9e6539d15824bb2e31936fe9b9e9"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 537d2ac9-207a-4f8f-abd9-81202c005187
+            X-Runtime: 0.423967
+            Content-Length: 387
+
+    + Body
+
+            {"data":[{"id":"e02bd482-021c-4a1c-a25a-87770ce97e17","type":"locations","attributes":{"name":"Location 01","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-01"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=e02bd482-021c-4a1c-a25a-87770ce97e17"}}}}]}
+
+## GET /v1/locations/{id}(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + id (required, string, `65e2ca89-8450-4bf8-9cd2-59ad141ff135`) ...
+    + location (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"669a8e3881ece53197fc1410f3677c34"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: be1ea0ce-2079-4c9d-9f5c-94ae3dcfa690
+            X-Runtime: 0.005855
+            Content-Length: 385
+
+    + Body
+
+            {"data":{"id":"65e2ca89-8450-4bf8-9cd2-59ad141ff135","type":"locations","attributes":{"name":"Location 05","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-05"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=65e2ca89-8450-4bf8-9cd2-59ad141ff135"}}}}}
+
+# Group OfferTime
+
+## GET /v1/offer_times(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + offer_time (optional, string, `{}`) ...
+    + ids (optional, string, `4bc00f5f-cefa-4654-9b4c-e9d87b61d114`) ...
+    + filter (optional, string, `{"offer_id_eq"=>"b479c9a1-61fd-47fb-b4c3-c6de807efc4e"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"3d82da5cf1f5f6d01a08895f671c052d"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: db7fc41d-3ab2-4cf0-ad65-7719db95802d
+            X-Runtime: 0.099628
+            Content-Length: 246
+
+    + Body
+
+            {"data":[{"id":"6409c9f5-c42e-4d3e-8ec7-82762fe1b8f8","type":"offer-times","attributes":{"time":"2016-09-19T00:00:00.000Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/5fe540a1-b356-4f65-bbdd-0813190713b2"}}}}]}
+
+## GET /v1/offer_times/{id}(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + id (required, string, `2fd98c9e-fcb2-4bf3-b609-28ae367ff144`) ...
+    + offer_time (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"b68fe37ec70097465226f6465aa61f90"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 17cff906-d1d8-4ee6-ac04-950e1b6309a2
+            X-Runtime: 0.005657
+            Content-Length: 244
+
+    + Body
+
+            {"data":{"id":"2fd98c9e-fcb2-4bf3-b609-28ae367ff144","type":"offer-times","attributes":{"time":"2013-01-21T00:00:00.000Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/f53ca8cb-ca65-4bc7-b4c4-b1aecfc02780"}}}}}
+
+# Group Offer
+
+## GET /v1/offers(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + offer (optional, string, `{}`) ...
+    + ids (optional, string, `c0f812bc-39c1-4ca4-8d97-a2cc1ceaefde`) ...
+    + filter (optional, string, `{"offer_locations_location_id_eq"=>"92581c05-0931-4d2f-b2cd-3be83da9ad19"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"c862d1e27e0b7f4cf3fa8b8866e7fc4e"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 497ca57a-8772-4a93-8088-d880042d2f9b
+            X-Runtime: 0.129483
+            Content-Length: 405
+
+    + Body
+
+            {"data":[{"id":"6cf51fc9-666c-4010-8e9d-25f8c5391a68","type":"offers","attributes":{"email":""},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=6cf51fc9-666c-4010-8e9d-25f8c5391a68"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=6cf51fc9-666c-4010-8e9d-25f8c5391a68"}}}}]}
+
+## POST /v1/offers(.{format})
+
++ Parameters
+
+    + data (optional, string, `{"type"=>"offers", "attributes"=>{"email"=>"guadalupe@feeney.com"}, "relationships"=>{"locations"=>{"data"=>[{"type"=>"locations", "id"=>"4ece16e4-4df6-466f-a9ac-0b1a9e365d24"}]}, "offer-times"=>{"data"=>[{"type"=>"offer-times", "attributes"=>{"time"=>"2012-04-23 00:00:00 +0000"}}]}}}`) ...
+    + offer (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
+    + Body
+
+            {"data":{"type":"offers","attributes":{"email":"guadalupe@feeney.com"},"relationships":{"locations":{"data":[{"type":"locations","id":"4ece16e4-4df6-466f-a9ac-0b1a9e365d24"}]},"offer-times":{"data":[{"type":"offer-times","attributes":{"time":"2012-04-23 00:00:00 +0000"}}]}}}}
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"f3357b368b566b85ccadc111156ddb99"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: a7625bb5-e9c8-4dd4-ad83-8e282da336b2
+            X-Runtime: 0.046644
+            Content-Length: 403
+
+    + Body
+
+            {"data":{"id":"2e72f514-6a0f-4469-9586-2366a815ca7d","type":"offers","attributes":{"email":""},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=2e72f514-6a0f-4469-9586-2366a815ca7d"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=2e72f514-6a0f-4469-9586-2366a815ca7d"}}}}}
+
++ Response 422
+
+    is unprocessable
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            Cache-Control: no-cache
+            X-Request-Id: 620a9648-c31e-487c-91ce-c94a33c567dc
+            X-Runtime: 0.050210
+            Content-Length: 188
+
+    + Body
+
+            {"errors":[{"source":{"pointer":"/data/attributes/email"},"detail":{"message":"blank","meta":{}}},{"source":{"pointer":"/data/attributes/email"},"detail":{"message":"invalid","meta":{}}}]}
+
+## GET /v1/offers/{id}(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + id (required, string, `1225542b-eea8-4708-a2be-a1e48bf7e92d`) ...
+    + offer (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"94357e2da8afa1af3dc1b6f31308da6e"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: ca6f1612-f4bf-43e4-b03e-978c49eec7cd
+            X-Runtime: 0.013746
+            Content-Length: 403
+
+    + Body
+
+            {"data":{"id":"1225542b-eea8-4708-a2be-a1e48bf7e92d","type":"offers","attributes":{"email":""},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=1225542b-eea8-4708-a2be-a1e48bf7e92d"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=1225542b-eea8-4708-a2be-a1e48bf7e92d"}}}}}
+
+
+

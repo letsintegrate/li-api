@@ -1,12 +1,12 @@
 FactoryGirl.define do
   factory :location do
-    name { FFaker::AddressDE.neighborhood }
+    sequence(:name) { |n| 'Location %02d'%[n] }
     description { FFaker::Lorem.paragraph }
     images [
       'http://lorempixel.com/800/600/city/1/',
       'http://lorempixel.com/800/600/city/3/'
     ]
-    slug { FFaker::Internet.slug }
+    sequence(:slug) { |n| 'location-%02d'%[n] }
   end
 
 end

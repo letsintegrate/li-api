@@ -3,13 +3,16 @@ class Offer < ActiveRecord::Base
 
   # Relationships
   has_many :locations, through: :offer_locations
-  has_many :offer_locations
-  has_many :offer_times
+  has_many :offer_locations, inverse_of: :offer
+  has_many :offer_times, inverse_of: :offer
 
   # Validations
   validates :email, presence: true, email: true
   validates :locations, presence: true
   validates :offer_times, presence: true
+
+  # Nested attributes
+  accepts_nested_attributes_for :offer_times
 
   # Methods
   def confirm!(token)
