@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "OfferTimes", type: :request do
-  let(:offer) { FactoryGirl.create :offer }
+  let(:offer) { FactoryGirl.create :offer, :confirmed }
   let(:offer_time) { offer.offer_times.first }
 
   before(:each) { offer_time }
