@@ -18,4 +18,10 @@ class OfferTime < ActiveRecord::Base
         )
     ) = 0', 2.hours.ago)
   end
+
+  def self.location(id)
+    joins(offer: [:offer_locations]).where(offer_locations: {
+      location_id: id
+    })
+  end
 end

@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe OfferTime, type: :model do
   subject { FactoryGirl.build :offer_time }
 
+  let(:offer_time) { FactoryGirl.create :offer_time, :confirmed }
+  let(:location) { offer_time.offer.locations.first }
+
   # Attributes
   it { should have_db_column(:id).of_type :uuid }
   it { should have_db_column(:offer_id).of_type :uuid }
@@ -65,6 +68,21 @@ RSpec.describe OfferTime, type: :model do
                                        offer: offer,
                                        created_at: 3.hours.ago
       expect(OfferTime.not_taken).to_not include offer_time
+    end
+  end
+
+  describe '#location' do
+    subject { OfferTime.location(location.id) }
+    let(:offer_time_two) { FactoryGirl.create :offer_time }
+
+    before(:each) { offer_time; offer_time_two }
+
+    it 'contains offer times within the given location' do
+      expect(subject).to include offer_time
+    end
+
+    it 'excludes other locations' do
+      expect(subject).to_not include offer_time_two
     end
   end
 end

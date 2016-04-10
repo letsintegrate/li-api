@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "OfferTimes", type: :request do
   let(:offer) { FactoryGirl.create :offer, :confirmed }
   let(:offer_time) { offer.offer_times.first }
+  let(:location) { offer.locations.first }
 
   before(:each) { offer_time }
 
@@ -20,6 +21,11 @@ RSpec.describe "OfferTimes", type: :request do
     it "works with filters" do
       offer = FactoryGirl.create :offer
       get v1_offer_times_path(filter: { offer_id_eq: offer.id })
+      expect(response).to have_http_status(200)
+    end
+
+    it "filters the location" do
+      get v1_offer_times_path(filter: { location: location.id })
       expect(response).to have_http_status(200)
     end
   end
