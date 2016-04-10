@@ -7,6 +7,7 @@ class OfferTime < ActiveRecord::Base
 
   # Scopes
   scope :confirmed, -> { joins(:offer).where.not(offers: { confirmed_at: nil}) }
+  scope :not_canceled, -> { joins(:offer).where(offers: { canceled_at: nil}) }
 
   def self.not_taken
     joins(:offer).where('(

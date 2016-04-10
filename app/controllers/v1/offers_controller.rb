@@ -3,7 +3,7 @@ module V1
     before_action :set_offer, only: %i(show)
 
     def index
-      @offers = get_index(Offer).upcoming.confirmed.not_taken
+      @offers = get_index(Offer).upcoming.confirmed.not_taken.not_canceled
       render json: @offers, each_serializer: OfferSerializer
     end
 

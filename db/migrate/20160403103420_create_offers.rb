@@ -5,6 +5,7 @@ class CreateOffers < ActiveRecord::Migration
       t.string :confirmation_token
       t.string :cancelation_token
       t.datetime :confirmed_at
+      t.datetime :canceled_at
 
       t.timestamps null: false
     end

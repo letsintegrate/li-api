@@ -57,6 +57,12 @@ RSpec.describe V1::OffersController, type: :controller do
       get :index, ids: offer.id
       expect(response.body).to_not include offer.id
     end
+
+    it 'excludes canceled offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming, :canceled
+      get :index, ids: offer.id
+      expect(response.body).to_not include offer.id
+    end
   end
 
   describe '#create' do

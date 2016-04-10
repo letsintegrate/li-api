@@ -18,6 +18,7 @@ class Offer < ActiveRecord::Base
 
   # Scopes
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :not_canceled, -> { where(canceled_at: nil) }
 
   def self.not_taken
     where('(
@@ -42,6 +43,15 @@ class Offer < ActiveRecord::Base
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def cancel!(token)
+    token_exception unless token == cancelation_token
+    update!(canceled_at: Time.zone.now)
+  end
+
+  def canceled?
+    canceled_at.present?
   end
 
   private

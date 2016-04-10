@@ -97,4 +97,16 @@ RSpec.describe OfferTime, type: :model do
       expect(OfferTime.upcoming).to_not include offer_time
     end
   end
+
+  describe '#not_canceled' do
+    it 'includes not canceled offer times' do
+      offer_time = FactoryGirl.create :offer_time, :confirmed, :upcoming
+      expect(OfferTime.not_canceled).to include offer_time
+    end
+
+    it 'excludes canceled offer times' do
+      offer_time = FactoryGirl.create :offer_time, :canceled, :upcoming
+      expect(OfferTime.not_canceled).to_not include offer_time
+    end
+  end
 end

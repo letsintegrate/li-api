@@ -3,7 +3,11 @@ module V1
     before_action :set_offer_time, only: %i(show)
 
     def index
-      @offer_times = get_index(OfferTime).upcoming.confirmed.not_taken
+      @offer_times = get_index(OfferTime)
+        .upcoming
+        .confirmed
+        .not_taken
+        .not_canceled
       render json: @offer_times, each_serializer: OfferTimeSerializer
     end
 

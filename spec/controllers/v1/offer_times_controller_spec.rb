@@ -58,6 +58,12 @@ RSpec.describe V1::OfferTimesController, type: :controller do
       get :index, ids: offer_time.id
       expect(response.body).to_not include offer_time.id
     end
+
+    it 'excludes canceled offer_times' do
+      offer_time = FactoryGirl.create :offer_time, :canceled, :upcoming
+      get :index, ids: offer_time.id
+      expect(response.body).to_not include offer_time.id
+    end
   end
 
   describe '#show' do

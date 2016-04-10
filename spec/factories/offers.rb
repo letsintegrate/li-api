@@ -5,7 +5,11 @@ FactoryGirl.define do
     offer_times { [FactoryGirl.build(:offer_time, offer: nil)] }
 
     trait :confirmed do
-      confirmed_at { Time.zone.now }
+      confirmed_at { 1.minute.ago }
+    end
+
+    trait :canceled do
+      canceled_at { 1.minute.ago }
     end
 
     trait :upcoming do

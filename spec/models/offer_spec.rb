@@ -15,6 +15,7 @@ RSpec.describe Offer, type: :model do
   it { should have_db_column(:confirmation_token).of_type :string }
   it { should have_db_column(:confirmed_at).of_type :datetime }
   it { should have_db_column(:cancelation_token).of_type :string }
+  it { should have_db_column(:canceled_at).of_type :datetime }
 
   # Validations
   it { should validate_presence_of :email }
@@ -94,6 +95,18 @@ RSpec.describe Offer, type: :model do
     end
   end
 
+  describe '#not_canceled' do
+    it 'includes not canceled offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming
+      expect(Offer.not_canceled).to include offer
+    end
+
+    it 'excludes caneled offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming, :canceled
+      expect(Offer.not_canceled).to_not include offer
+    end
+  end
+
   # Methods
   it { should respond_to(:confirm!).with(1).argument }
 
@@ -128,6 +141,40 @@ RSpec.describe Offer, type: :model do
     it 'returns false if the record is not confirmed' do
       subject = FactoryGirl.build :offer
       expect(subject.confirmed?).to be false
+    end
+  end
+
+  describe '#cancel!' do
+    subject { FactoryGirl.build :offer }
+
+    it 'fails with wrong token' do
+      expect {
+        subject.cancel!('foo')
+      }.to raise_error(TokenMissmatch)
+    end
+
+    it 'updates cancelation time with matching token' do
+      Timecop.freeze(Time.local(2008, 9, 1, 12, 0, 0)) do
+        subject.save!
+        expect {
+          subject.cancel!(subject.cancelation_token)
+        }.to change { subject.reload.canceled_at }.from(nil).to Time.zone.now
+      end
+    end
+  end
+
+  describe '#canceled?' do
+    it 'exists' do
+      expect(subject).to respond_to(:canceled?).with(0).arguments
+    end
+
+    it 'returns true if the record is canceled' do
+      subject = FactoryGirl.build :offer, :canceled
+      expect(subject.canceled?).to be true
+    end
+
+    it 'returns false if the record is not canceled' do
+      expect(subject.canceled?).to be false
     end
   end
 
