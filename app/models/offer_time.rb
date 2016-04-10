@@ -13,6 +13,7 @@ class OfferTime < ActiveRecord::Base
     joins(:offer).where('(
       SELECT COUNT(*) FROM appointments WHERE
         appointments.offer_id = offers.id AND
+        appointments.canceled_at IS NULL AND
         (
           appointments.created_at > ? OR
           appointments.confirmed_at IS NOT NULL

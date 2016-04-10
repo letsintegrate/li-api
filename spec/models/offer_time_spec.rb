@@ -42,8 +42,6 @@ RSpec.describe OfferTime, type: :model do
       offer = FactoryGirl.create :offer, :confirmed
       offer_time = offer.offer_times.first
       appointment = FactoryGirl.create :appointment,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer
       expect(OfferTime.not_taken).to_not include offer_time
     end
@@ -52,8 +50,6 @@ RSpec.describe OfferTime, type: :model do
       offer = FactoryGirl.create :offer, :confirmed
       offer_time = offer.offer_times.first
       appointment = FactoryGirl.create :appointment,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer,
                                        created_at: 3.hours.ago
       expect(OfferTime.not_taken).to include offer_time
@@ -63,11 +59,19 @@ RSpec.describe OfferTime, type: :model do
       offer = FactoryGirl.create :offer, :confirmed
       offer_time = offer.offer_times.first
       appointment = FactoryGirl.create :appointment, :confirmed,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer,
                                        created_at: 3.hours.ago
       expect(OfferTime.not_taken).to_not include offer_time
+    end
+
+    it 'includes offers with canceled appointment' do
+      offer = FactoryGirl.create :offer, :confirmed
+      offer_time = offer.offer_times.first
+      appointment = FactoryGirl.create :appointment, :confirmed,
+                                       offer: offer,
+                                       created_at: 3.hours.ago,
+                                       canceled_at: 1.hour.ago
+      expect(OfferTime.not_taken).to include offer_time
     end
   end
 

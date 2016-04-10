@@ -48,8 +48,6 @@ RSpec.describe Offer, type: :model do
     it 'does not contain offers that have shortly be taken but not confirmed' do
       offer = FactoryGirl.create :offer, :confirmed
       appointment = FactoryGirl.create :appointment,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer
       expect(Offer.not_taken).to_not include offer
     end
@@ -57,8 +55,6 @@ RSpec.describe Offer, type: :model do
     it 'contains offers that where taken over 2 hours ago but not confirmed' do
       offer = FactoryGirl.create :offer, :confirmed
       appointment = FactoryGirl.create :appointment,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer,
                                        created_at: 3.hours.ago
       expect(Offer.not_taken).to include offer
@@ -67,11 +63,18 @@ RSpec.describe Offer, type: :model do
     it 'dose not contain offers have been taken 2 hours ago and have been confirmed' do
       offer = FactoryGirl.create :offer, :confirmed
       appointment = FactoryGirl.create :appointment, :confirmed,
-                                       location: offer.locations.first,
-                                       offer_time: offer.offer_times.first,
                                        offer: offer,
                                        created_at: 3.hours.ago
       expect(Offer.not_taken).to_not include offer
+    end
+
+    it 'includes offers with canceled appointments' do
+      offer = FactoryGirl.create :offer, :confirmed
+      appointment = FactoryGirl.create :appointment, :confirmed,
+                                       offer: offer,
+                                       created_at: 3.hours.ago,
+                                       canceled_at: 1.hour.ago
+      expect(Offer.not_taken).to include offer
     end
   end
 
