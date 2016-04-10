@@ -1,0 +1,3 @@
+AppointmentMailer#confirmation
+
+Hi, find me in app/views/appointment_mailer/confirmation

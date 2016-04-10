@@ -8,12 +8,6 @@ FactoryGirl.define do
     trait :confirmed do
       confirmed_at { FFaker::Time.date }
     end
-
-    trait :cancel_requested do
-      after(:build) do |appointment|
-        appointment.cancel
-      end
-    end
   end
 
 end

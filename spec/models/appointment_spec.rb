@@ -35,7 +35,6 @@ RSpec.describe Appointment, type: :model do
   # Methods
   it { should respond_to(:confirm!).with(1).argument }
   it { should respond_to(:cancel!).with(1).argument }
-  it { should respond_to(:cancel).with(0).argument }
 
   describe '#confirm!' do
     it 'fails with wrong token' do
@@ -55,7 +54,7 @@ RSpec.describe Appointment, type: :model do
   end
 
   describe '#cancel!' do
-    subject { FactoryGirl.create :appointment, :cancel_requested }
+    subject { FactoryGirl.create :appointment }
 
     it 'fails with wrong token' do
       expect {
@@ -72,19 +71,15 @@ RSpec.describe Appointment, type: :model do
     end
   end
 
-  describe '#cancel' do
-    it 'creates a cancelation token' do
-      subject.save!
-      expect {
-        subject.cancel
-      }.to change { subject.reload.cancelation_token }.from(nil)
-    end
-  end
-
   # Token generation
   it 'generates a confirmation token on create' do
     subject.save!
     expect(subject.confirmation_token).not_to be_nil
+  end
+
+  it 'generates a cancelation token on create' do
+    subject.save!
+    expect(subject.cancelation_token).not_to be_nil
   end
 
   # Pending

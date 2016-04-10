@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   end
 
   namespace :v1 do
+  resources :appointments do
+    patch :confirm, on: :member, as: :confirm
+  end
     resources :locations
     resources :offers do
-      patch :confirm, on: :member, as: :confirm 
+      patch :confirm, on: :member, as: :confirm
     end
     resources :offer_times
   end
