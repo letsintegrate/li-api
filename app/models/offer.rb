@@ -1,5 +1,6 @@
 class Offer < ActiveRecord::Base
   tokenize :confirmation_token, length: 16
+  tokenize :cancelation_token, length: 16
 
   # Relationships
   has_many :appointments, inverse_of: :offer

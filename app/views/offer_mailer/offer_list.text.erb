@@ -1,0 +1,11 @@
+Here is a list of upcoming offers at Let's integrate! including cancelation
+links.
+
+<% @offers.each do |offer| -%>
+* <%= offer.offer_times.map(&:time).join ', ' %>
+  <%= offer.locations.map(&:name).join ', ' %>
+  https://loetsintegrate.de/en/offers/cancel/<%= offer.id %>/cancel/<%= offer.cancelation_token %>
+<% end %>
+
+Best,
+Let's integrate!

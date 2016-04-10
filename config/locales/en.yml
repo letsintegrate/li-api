@@ -23,3 +23,5 @@ en:
   offer_mailer:
     confirmation:
       subject: 'Confirm the e-mail address of your offer'
+    offer_list:
+      subject: 'Listing your offers'

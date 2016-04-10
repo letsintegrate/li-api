@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160403185538) do
   create_table "offers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "email"
     t.string   "confirmation_token"
+    t.string   "cancelation_token"
     t.datetime "confirmed_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false

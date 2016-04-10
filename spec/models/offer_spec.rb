@@ -14,6 +14,7 @@ RSpec.describe Offer, type: :model do
   it { should have_db_column(:email).of_type :string }
   it { should have_db_column(:confirmation_token).of_type :string }
   it { should have_db_column(:confirmed_at).of_type :datetime }
+  it { should have_db_column(:cancelation_token).of_type :string }
 
   # Validations
   it { should validate_presence_of :email }
@@ -131,9 +132,14 @@ RSpec.describe Offer, type: :model do
   end
 
   # Token generation
-  it 'generates a token on create' do
+  it 'generates a confirmation token on create' do
     subject.save!
     expect(subject.confirmation_token).not_to be_nil
+  end
+
+  it 'generates a cancelation token on create' do
+    subject.save!
+    expect(subject.cancelation_token).not_to be_nil
   end
 
   # Pending

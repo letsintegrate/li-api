@@ -4,4 +4,10 @@ class OfferMailer < ApplicationMailer
 
     mail to: offer.email
   end
+
+  def offer_list(email)
+    @offers = Offer.upcoming.confirmed.where(email: email)
+
+    mail to: email
+  end
 end
