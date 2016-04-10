@@ -82,6 +82,19 @@ RSpec.describe V1::OffersController, type: :controller do
           post :create, data: data
         }.to change(Offer, :count).by 1
       end
+
+      it 'calls OfferMailer#confirmation' do
+        expect(OfferMailer).to receive(:confirmation)
+          .with(Offer)
+          .and_return(OfferMailer.confirmation(offer))
+        post :create, data: data
+      end
+
+      it 'sends an e-Mail' do
+        expect {
+          post :create, data: data
+        }.to change { OfferMailer.deliveries.count }.by(1)
+      end
     end
 
     describe 'with invalid data' do

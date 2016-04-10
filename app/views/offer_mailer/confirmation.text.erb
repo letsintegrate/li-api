@@ -1,3 +1,7 @@
-OfferMailer#confirmation
+Thank you for your offer! Please confirm your e-Mail
+address by opening the following link.
 
-<%= @greeting %>, find me in app/views/offer_mailer/confirmation.text.erb
+http://letsintegrate.de/en/offers/<%= @offer.id %>/confirm/<%= @offer.confirmation_token %>
+
+Kind regards,
+Let's integrate

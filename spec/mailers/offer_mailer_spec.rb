@@ -18,9 +18,17 @@ RSpec.describe OfferMailer, type: :mailer do
       expect(mail.from).to eq(['no-reply@letsintegrate.de'])
     end
 
-    # it 'renders the body' do
-    #   expect(mail.body.encoded).to match('Hi')
-    # end
+    context 'body' do
+      subject { mail.body.encoded }
+
+      it 'includes the offer id' do
+        expect(subject).to include offer.id
+      end
+
+      it 'includes the confirmation token' do
+        expect(subject).to include offer.confirmation_token
+      end
+    end
   end
 
 end
