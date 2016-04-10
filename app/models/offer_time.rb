@@ -24,4 +24,8 @@ class OfferTime < ActiveRecord::Base
       location_id: id
     })
   end
+
+  def self.upcoming
+    where('offer_times.time >= ?', Time.zone.now)
+  end
 end

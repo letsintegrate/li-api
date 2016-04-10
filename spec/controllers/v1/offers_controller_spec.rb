@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe V1::OffersController, type: :controller do
-  let(:offer)    { FactoryGirl.create :offer, :confirmed }
+  let(:offer)    { FactoryGirl.create :offer, :confirmed, :upcoming }
   let(:location) { FactoryGirl.create :location }
 
   before(:each) { offer }
 
   describe '#index' do
-    before(:each) { FactoryGirl.create :offer, :confirmed }
+    before(:each) { FactoryGirl.create :offer, :confirmed, :upcoming }
 
     it 'is successful' do
       get :index
@@ -15,35 +15,47 @@ RSpec.describe V1::OffersController, type: :controller do
     end
 
     it 'filters by ids array' do
-      ids = (1..3).map { FactoryGirl.create(:offer, :confirmed).id }
+      ids = (1..3).map { FactoryGirl.create(:offer, :confirmed, :upcoming).id }
       get :index, ids: ids
       expect(data.length).to eql ids.length
     end
 
     it 'filters by ids string' do
-      ids = (1..3).map { FactoryGirl.create(:offer, :confirmed).id }
+      ids = (1..3).map { FactoryGirl.create(:offer, :confirmed, :upcoming).id }
       get :index, ids: ids.join(',')
       expect(data.length).to eql ids.length
     end
 
     it 'filters the result' do
-      offer = FactoryGirl.create :offer, :confirmed
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming
       get :index, filter: { offer_locations_offer_id_eq: offer.id }
       expect(data.length).to eql(1)
     end
 
     it 'only returns confirmed offers' do
-      offers = FactoryGirl.create_list :offer, 3, :confirmed, locations: [location]
-      offers += FactoryGirl.create_list :offer, 3, locations: [location]
+      offers = FactoryGirl.create_list :offer, 3, :confirmed, :upcoming, locations: [location]
+      offers += FactoryGirl.create_list :offer, 3, :upcoming, locations: [location]
       get :index, ids: offers.map(&:id)
       expect(data.length).to eql(3)
     end
 
     it 'excludes taken offers' do
-      offers = FactoryGirl.create_list :offer, 6, :confirmed, locations: [location]
+      offers = FactoryGirl.create_list :offer, 6, :confirmed, :upcoming, locations: [location]
       offers[0..2].map { |offer| FactoryGirl.create :appointment, offer: offer }
       get :index, ids: offers.map(&:id)
       expect(data.length).to eql(3)
+    end
+
+    it 'includes upcoming offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming
+      get :index, ids: offer.id
+      expect(response.body).to include offer.id
+    end
+
+    it 'excludes expired offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :expired
+      get :index, ids: offer.id
+      expect(response.body).to_not include offer.id
     end
   end
 

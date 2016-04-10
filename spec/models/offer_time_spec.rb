@@ -85,4 +85,16 @@ RSpec.describe OfferTime, type: :model do
       expect(subject).to_not include offer_time_two
     end
   end
+
+  describe '#upcoming' do
+    it 'includes upcomming offer times' do
+      offer_time = FactoryGirl.create :offer_time, :confirmed, :upcoming
+      expect(OfferTime.upcoming).to include offer_time
+    end
+
+    it 'excludes expired offer times' do
+      offer_time = FactoryGirl.create :offer_time, :confirmed, :expired
+      expect(OfferTime.upcoming).to_not include offer_time
+    end
+  end
 end

@@ -6,6 +6,14 @@ FactoryGirl.define do
     trait :confirmed do
       offer { FactoryGirl.build :offer, :confirmed }
     end
+
+    trait :upcoming do
+      sequence(:time) { |n| Time.now + n.hours }
+    end
+
+    trait :expired do
+      sequence(:time) { |n| Time.now - n.hours }
+    end
   end
 
 end

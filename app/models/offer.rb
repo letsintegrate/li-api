@@ -29,6 +29,10 @@ class Offer < ActiveRecord::Base
     ) = 0', 2.hours.ago)
   end
 
+  def self.upcoming
+    joins(:offer_times).where('offer_times.time >= ?', Time.zone.now)
+  end
+
   # Methods
   def confirm!(token)
     token_exception unless token == confirmation_token

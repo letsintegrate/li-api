@@ -73,6 +73,26 @@ RSpec.describe Offer, type: :model do
     end
   end
 
+  describe '#upcoming' do
+    it 'includes upcomming offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :upcoming
+      expect(Offer.upcoming).to include offer
+    end
+
+    it 'excludes pased offers' do
+      offer = FactoryGirl.create :offer, :confirmed, :expired
+      expect(Offer.upcoming).to_not include offer
+    end
+
+    it 'includes offers with upcoming and expired times' do
+      offer = FactoryGirl.create :offer, :confirmed, offer_times: [
+        FactoryGirl.build(:offer_time, :upcoming, offer: nil),
+        FactoryGirl.build(:offer_time, :expired, offer: nil),
+      ]
+      expect(Offer.upcoming).to include offer
+    end
+  end
+
   # Methods
   it { should respond_to(:confirm!).with(1).argument }
 
