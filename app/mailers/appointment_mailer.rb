@@ -10,4 +10,10 @@ class AppointmentMailer < ApplicationMailer
 
     mail to: appointment.email
   end
+
+  def match(appointment)
+    @appointment = appointment
+
+    mail to: 'appointments@letsintegrate.de'
+  end
 end
