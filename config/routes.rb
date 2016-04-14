@@ -1,16 +1,9 @@
 Rails.application.routes.draw do
   namespace :v1 do
-  get 'offer_times/index'
-  end
-
-  namespace :v1 do
-  get 'offer_times/show'
-  end
-
-  namespace :v1 do
-  resources :appointments do
-    patch :confirm, on: :member, as: :confirm
-  end
+    resources :appointments do
+      patch :confirm, on: :member, as: :confirm
+    end
+    resources :email_reports, only: %i(create)
     resources :locations
     resources :offers do
       patch :confirm, on: :member, as: :confirm

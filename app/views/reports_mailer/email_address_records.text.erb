@@ -1,0 +1,15 @@
+<%- if @offers.length > 0 %>
+## Your offers
+<% @offers.each do |offer| %>
+  * <%= offer.offer_times.map { |t| t.time }.join(', ') %>
+    <%= offer.locations.map { |l| l.name }.join(', ') %>
+    Withdraw the offer: http://letsintegrate.de/offers/<%= offer.id %>/withdraw/<%= offer.cancelation_token %>
+<% end %>
+<% end -%>
+<%- if @appointments.length > 0 %>
+## Your appointments
+<% @appointments.each do |appointment| %>
+  * <%= appointment.offer_time %> : <%= appointment.location.name %>
+    Withdraw the appointment: http://letsintegrate.de/appointments/<%= appointment.id %>/withdraw/<%= appointment.cancelation_token %>
+<% end %>
+<% end %>

@@ -81,7 +81,4 @@ RSpec.describe Appointment, type: :model do
     subject.save!
     expect(subject.cancelation_token).not_to be_nil
   end
-
-  # Pending
-  pending 'email sending'
 end
