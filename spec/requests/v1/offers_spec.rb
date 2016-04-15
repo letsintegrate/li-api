@@ -81,12 +81,6 @@ RSpec.describe "Offers", type: :request do
       get v1_offer_path(id: offer.id)
       expect(response).to have_http_status(200)
     end
-
-    it 'fails for not confirmed records' do
-      offer = FactoryGirl.create :offer
-      get v1_offer_path(id: offer.id)
-      expect(response).to have_http_status(404)
-    end
   end
 
   describe '#confirm' do

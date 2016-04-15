@@ -26,7 +26,7 @@ module V1
     private
 
     def set_offer
-      @offer = Offer.confirmed.find(params[:id])
+      @offer = Offer.find(params[:id])
     end
 
     def offer_params
