@@ -1,17 +1,10 @@
 db:
   image: postgres:9.4.1
-  ports:
-    - "5432:5432"
 
 web:
   build: ./../
-  command: rails server --port 3000 --binding 0.0.0.0
-  ports:
-    - "3000:3000"
   links:
     - db
-  volumes:
-    - ./../:/usr/src/app
   environment:
     - SECRET_KEY_BASE=a8b58c11a63f19cb6e0dfa1baf547aa4746545ebf7c955958976c82271be2a8b260f74cf45aefb20014c4c614bc345670739aaa7810f8c812f48bae181f03880
     - RAILS_ENV=test
