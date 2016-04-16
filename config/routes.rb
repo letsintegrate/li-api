@@ -4,12 +4,12 @@ Rails.application.routes.draw do
       patch :confirm, on: :member, as: :confirm
       put   :confirm, on: :member
     end
-    resources :email_reports, only: %i(create)
+    resources :email_reports, path: 'email-reports', only: %i(create)
     resources :locations
     resources :offers do
       patch :confirm, on: :member, as: :confirm
       put   :confirm, on: :member
     end
-    resources :offer_times
+    resources :offer_times, path: 'offer-times'
   end
 end
