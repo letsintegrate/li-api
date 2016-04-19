@@ -4,21 +4,23 @@ HOST: https://letsintegrate.de/api
 # Let's integrate
 
 
-# Group Location
+# Group Appointment
 
-## GET /v1/locations(.{format})
+## POST /v1/appointments(.{format})
 
 + Parameters
 
-    + {} (optional, string, ``) ...
-    + location (optional, string, `{}`) ...
-    + ids (optional, string, `e17df1ab-81ca-4731-b502-0ac6f1a76cf9`) ...
-    + filter (optional, string, `{"offer_locations_offer_id_eq"=>"b2512439-1fbf-4b6d-80c5-114748d2db47"}`) ...
+    + data (optional, string, `{"type"=>"appointments", "attributes"=>{"email"=>"asa@lowehermann.biz"}, "relationships"=>{"offer"=>{"data"=>{"type"=>"offers", "id"=>"2c3fe19a-146b-4920-952f-ee055410632b"}}, "location"=>{"data"=>{"type"=>"locations", "id"=>"ce574f6f-9114-4a51-9ecb-46576870277d"}}, "offer-time"=>{"data"=>{"type"=>"offer-times", "id"=>"1714943f-b467-450b-8ce2-d65fb50e7081"}}}}`) ...
+    + appointment (optional, string, `{}`) ...
 
 + Request
 
     + Headers
 
+
+    + Body
+
+            {"data":{"type":"appointments","attributes":{"email":"asa@lowehermann.biz"},"relationships":{"offer":{"data":{"type":"offers","id":"2c3fe19a-146b-4920-952f-ee055410632b"}},"location":{"data":{"type":"locations","id":"ce574f6f-9114-4a51-9ecb-46576870277d"}},"offer-time":{"data":{"type":"offer-times","id":"1714943f-b467-450b-8ce2-d65fb50e7081"}}}}}
 
 + Response 200
 
@@ -30,189 +32,16 @@ HOST: https://letsintegrate.de/api
             X-XSS-Protection: 1; mode=block
             X-Content-Type-Options: nosniff
             Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"346666fb9207f18f13b5008a6416ccb1"
+            ETag: W/"a2965121032382911e4b98529b299b49"
             Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 5518d32e-18d1-4610-b46f-ab75cbfd1044
-            X-Runtime: 0.582493
-            Content-Length: 387
+            X-Request-Id: af8e2066-7da3-4050-b2cb-d6bf3e1bd9da
+            X-Runtime: 0.983983
+            Vary: Origin
+            Content-Length: 477
 
     + Body
 
-            {"data":[{"id":"429f90d5-cc24-4334-9f35-5efcb2239196","type":"locations","attributes":{"name":"Location 01","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-01"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=429f90d5-cc24-4334-9f35-5efcb2239196"}}}}]}
-
-## GET /v1/locations/{id}(.{format})
-
-+ Parameters
-
-    + {} (optional, string, ``) ...
-    + id (required, string, `23836342-47ec-421c-9b09-737e0a1b621f`) ...
-    + location (optional, string, `{}`) ...
-
-+ Request
-
-    + Headers
-
-
-+ Response 200
-
-    works
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"b9a691e1f0dac8c69781b59c8b0e47bb"
-            Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: e78d0c76-f721-4011-962b-30eb856c2a9c
-            X-Runtime: 0.006718
-            Content-Length: 385
-
-    + Body
-
-            {"data":{"id":"23836342-47ec-421c-9b09-737e0a1b621f","type":"locations","attributes":{"name":"Location 05","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-05"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=23836342-47ec-421c-9b09-737e0a1b621f"}}}}}
-
-# Group OfferTime
-
-## GET /v1/offer_times(.{format})
-
-+ Parameters
-
-    + {} (optional, string, ``) ...
-    + offer_time (optional, string, `{}`) ...
-    + ids (optional, string, `3c9cfbbd-707e-45e9-90dd-1a466d3dd050`) ...
-    + filter (optional, string, `{"offer_id_eq"=>"b5bbff48-ce87-41d8-984b-fb1fb2b5d947"}`) ...
-
-+ Request
-
-    + Headers
-
-
-+ Response 200
-
-    works
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"3178285eb8666cf5d77b077a95c1046b"
-            Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 9a4d508b-b4d6-48c7-a221-2332eba978ef
-            X-Runtime: 0.206906
-            Content-Length: 246
-
-    + Body
-
-            {"data":[{"id":"944e3618-c402-4394-9816-bd3f03f96576","type":"offer-times","attributes":{"time":"2012-05-07T00:00:00.000Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/030ba4d3-d6ee-4805-afa7-b1924eced6db"}}}}]}
-
-## GET /v1/offer_times/{id}(.{format})
-
-+ Parameters
-
-    + {} (optional, string, ``) ...
-    + id (required, string, `62bd876c-8607-457f-b870-cfadcfa966fb`) ...
-    + offer_time (optional, string, `{}`) ...
-
-+ Request
-
-    + Headers
-
-
-+ Response 200
-
-    works
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"e82cfb136d15e8d69aa638734c576237"
-            Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: a21cb13b-32c4-4b34-a8a8-474cf1a223b5
-            X-Runtime: 0.017318
-            Content-Length: 244
-
-    + Body
-
-            {"data":{"id":"62bd876c-8607-457f-b870-cfadcfa966fb","type":"offer-times","attributes":{"time":"2013-01-24T00:00:00.000Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/6bb68d1d-7170-435e-b84b-0cbeb9c20eb0"}}}}}
-
-# Group Offer
-
-## GET /v1/offers(.{format})
-
-+ Parameters
-
-    + {} (optional, string, ``) ...
-    + offer (optional, string, `{}`) ...
-    + ids (optional, string, `9547a14e-027c-415e-884a-5f3a8fc7acda`) ...
-    + filter (optional, string, `{"offer_locations_location_id_eq"=>"53b5b8ff-faae-4ea4-b789-01adc3fc1f1b"}`) ...
-
-+ Request
-
-    + Headers
-
-
-+ Response 200
-
-    works
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"552add3c91318aa009dd8055a0fe3d82"
-            Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 91466289-5ebc-4d3f-81fe-2dbaa56d9c49
-            X-Runtime: 0.203334
-            Content-Length: 422
-
-    + Body
-
-            {"data":[{"id":"df39e1b1-b589-4c19-9a5e-d12ab32bf9f6","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=df39e1b1-b589-4c19-9a5e-d12ab32bf9f6"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=df39e1b1-b589-4c19-9a5e-d12ab32bf9f6"}}}}]}
-
-## POST /v1/offers(.{format})
-
-+ Parameters
-
-    + data (optional, string, `{"type"=>"offers", "attributes"=>{"email"=>"thalia@howell.ca"}, "relationships"=>{"locations"=>{"data"=>[{"type"=>"locations", "id"=>"6289e84d-21b4-4309-919c-28c592d1a030"}]}, "offer-times"=>{"data"=>[{"type"=>"offer-times", "attributes"=>{"time"=>"2013-05-06 00:00:00 +0000"}}]}}}`) ...
-    + offer (optional, string, `{}`) ...
-
-+ Request
-
-    + Headers
-
-
-    + Body
-
-            {"data":{"type":"offers","attributes":{"email":"thalia@howell.ca"},"relationships":{"locations":{"data":[{"type":"locations","id":"6289e84d-21b4-4309-919c-28c592d1a030"}]},"offer-times":{"data":[{"type":"offer-times","attributes":{"time":"2013-05-06 00:00:00 +0000"}}]}}}}
-
-+ Response 200
-
-    works
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"9667e5ee71d472c105cc0552123d2215"
-            Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 5dc0dbea-4db6-40f3-9e19-ffed3ab68128
-            X-Runtime: 0.024214
-            Content-Length: 421
-
-    + Body
-
-            {"data":{"id":"6cf02bf1-513f-487d-86ad-a8e07c15fe3e","type":"offers","attributes":{"email":"","confirmed":false},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=6cf02bf1-513f-487d-86ad-a8e07c15fe3e"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=6cf02bf1-513f-487d-86ad-a8e07c15fe3e"}}}}}
+            {"data":{"id":"3d285404-4e49-46b0-b454-5a1382685b75","type":"appointments","attributes":{"email":"","confirmed":false,"canceled":false},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/2c3fe19a-146b-4920-952f-ee055410632b"}},"offer-time":{"links":{"related":"http://www.example.com/v1/offer-times/1714943f-b467-450b-8ce2-d65fb50e7081"}},"location":{"links":{"related":"http://www.example.com/v1/locations/ce574f6f-9114-4a51-9ecb-46576870277d"}}}}}
 
 + Response 422
 
@@ -225,8 +54,339 @@ HOST: https://letsintegrate.de/api
             X-Content-Type-Options: nosniff
             Content-Type: application/vnd.api+json; charset=utf-8
             Cache-Control: no-cache
-            X-Request-Id: ce67c07c-7136-4849-b420-5c7d8f45eb56
-            X-Runtime: 0.056837
+            X-Request-Id: e6e7cf03-951a-4ec7-862a-5efc81a25628
+            X-Runtime: 0.026424
+            Vary: Origin
+            Content-Length: 457
+
+    + Body
+
+            {"errors":[{"source":{"pointer":"/data/attributes/location"},"detail":{"message":"blank","meta":{}}},{"source":{"pointer":"/data/attributes/offer-time"},"detail":{"message":"blank","meta":{}}},{"source":{"pointer":"/data/attributes/offer"},"detail":{"message":"blank","meta":{}}},{"source":{"pointer":"/data/attributes/email"},"detail":{"message":"blank","meta":{}}},{"source":{"pointer":"/data/attributes/email"},"detail":{"message":"invalid","meta":{}}}]}
+
+## PATCH /v1/appointments/{id}/confirm(.{format})
+
++ Parameters
+
+    + token (optional, string, `n5pnQTqt`) ...
+    + id (required, string, `21f397e4-2085-4806-b197-91baccdc4335`) ...
+    + appointment (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
+    + Body
+
+            {}
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"3579843e0b3fb8da22dd3a831b3e8ea4"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 2bde7fe2-825b-4581-8902-4d3bd3cabe1c
+            X-Runtime: 0.153043
+            Vary: Origin
+            Content-Length: 476
+
+    + Body
+
+            {"data":{"id":"21f397e4-2085-4806-b197-91baccdc4335","type":"appointments","attributes":{"email":"","confirmed":true,"canceled":false},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/df108abf-d594-4e21-9f0a-3fe4e6425a90"}},"offer-time":{"links":{"related":"http://www.example.com/v1/offer-times/e5fd0d3b-527b-44d1-8e53-fabd619fc240"}},"location":{"links":{"related":"http://www.example.com/v1/locations/b9b1f49b-5b0c-4325-b7a7-404242141139"}}}}}
+
++ Response 422
+
+    fails with invalid token
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            Cache-Control: no-cache
+            X-Request-Id: 0e6de299-1b6c-47be-b977-47a5061d777d
+            X-Runtime: 0.022514
+            Vary: Origin
+            Content-Length: 114
+
+    + Body
+
+            {"errors":[{"source":{"pointer":"/data/attributes/confirmation-token"},"detail":{"message":"invalid","meta":{}}}]}
+
+# Group Location
+
+## GET /v1/locations(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + location (optional, string, `{}`) ...
+    + ids (optional, string, `7312429c-9428-453f-880b-464b77f663fa`) ...
+    + filter (optional, string, `{"offer_locations_offer_id_eq"=>"68ddf649-89a1-48d0-a1a4-0ea97ff578c2"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"af0b2a70dc2a2448bfb9ae89e114dae0"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: c495f28e-c7f7-455a-afd6-ca1531fca039
+            X-Runtime: 0.060923
+            Vary: Origin
+            Content-Length: 387
+
+    + Body
+
+            {"data":[{"id":"2c01319a-5cf5-4f90-a10a-f8f1a74b6ca4","type":"locations","attributes":{"name":"Location 06","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-06"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=2c01319a-5cf5-4f90-a10a-f8f1a74b6ca4"}}}}]}
+
+## GET /v1/locations/{id}(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + id (required, string, `74b7ee6c-5599-4b98-a128-a1163b05fa02`) ...
+    + location (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"ed5603b34ea5459c2841df011e5a0407"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: dba8bd1f-0d82-4dc7-9aa5-17c6a919abe1
+            X-Runtime: 0.012156
+            Vary: Origin
+            Content-Length: 385
+
+    + Body
+
+            {"data":{"id":"74b7ee6c-5599-4b98-a128-a1163b05fa02","type":"locations","attributes":{"name":"Location 10","images":["http://lorempixel.com/800/600/city/1/","http://lorempixel.com/800/600/city/3/"],"slug":"location-10"},"relationships":{"offers":{"links":{"related":"http://www.example.com/v1/offers?filter%5Boffer_locations_location_id_eq%5D=74b7ee6c-5599-4b98-a128-a1163b05fa02"}}}}}
+
+# Group Offer item
+
+## GET /v1/offer_items(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + offer_item (optional, string, `{}`) ...
+    + filter (optional, string, `{"location_id_eq"=>"ea6bd3b0-b182-4014-93be-e388492b49e8"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"abfd08f5c3b945603ee97091952f1d93"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 7a9679ef-da43-4068-b775-5c8d29c62599
+            X-Runtime: 0.254427
+            Vary: Origin
+            Content-Length: 487
+
+    + Body
+
+            {"data":[{"id":"6dcb8324-8912-43a7-8a24-3a495ee17c78","type":"offer-items","attributes":{"name":"Location 11","time":"2016-04-19T20:48:59.628Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/76da71eb-6b78-4166-b338-4490ed27bfcc"}},"offer-time":{"links":{"related":"http://www.example.com/v1/offer-times/4c12c91c-3a79-4812-a88a-fc5e9f280003"}},"location":{"links":{"related":"http://www.example.com/v1/locations/7163a655-8183-49d6-8f1b-29375f13e9d5"}}}}]}
+
+# Group OfferTime
+
+## GET /v1/offer-times(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + offer_time (optional, string, `{}`) ...
+    + ids (optional, string, `e70de260-a44d-4ca0-af98-a0d7c5741e08`) ...
+    + filter (optional, string, `{"offer_id_eq"=>"c4688422-dc00-4e9c-9232-a995df21bfdf"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"e0234245cb00aa260ccfa99a9a0b235e"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 948e0fb9-5fff-45fa-9924-58aebbc6db4b
+            X-Runtime: 0.055870
+            Vary: Origin
+            Content-Length: 11
+
+    + Body
+
+            {"data":[]}
+
+## GET /v1/offer-times/{id}(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + id (required, string, `b66a41e0-2e88-4c47-a8f9-f114236797ae`) ...
+    + offer_time (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"ca2ddde33bf8743d495df3e76aef8834"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 8a6eb4ea-6738-44d7-ae62-e5f21ad512e4
+            X-Runtime: 0.097816
+            Vary: Origin
+            Content-Length: 244
+
+    + Body
+
+            {"data":{"id":"b66a41e0-2e88-4c47-a8f9-f114236797ae","type":"offer-times","attributes":{"time":"2015-03-17T00:00:00.000Z"},"relationships":{"offer":{"links":{"related":"http://www.example.com/v1/offers/77649004-1e69-4b1f-a97c-506e7fff7b66"}}}}}
+
+# Group Offer
+
+## GET /v1/offers(.{format})
+
++ Parameters
+
+    + {} (optional, string, ``) ...
+    + offer (optional, string, `{}`) ...
+    + ids (optional, string, `5e83f05b-32ac-4adc-b778-67c0394b646a`) ...
+    + filter (optional, string, `{"offer_locations_location_id_eq"=>"cc8413b2-44a6-4dcd-b04f-8170f3e6b316"}`) ...
+
++ Request
+
+    + Headers
+
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"7b5b675d76d10948c660bcf3ae7607e3"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: 2cbf71a4-d80a-4442-a4e9-8f66468ca396
+            X-Runtime: 0.167088
+            Vary: Origin
+            Content-Length: 419
+
+    + Body
+
+            {"data":[{"id":"694622d8-06da-4ea8-999a-0ba11006716a","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=694622d8-06da-4ea8-999a-0ba11006716a"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer-times?filter%5Boffer_id_eq%5D=694622d8-06da-4ea8-999a-0ba11006716a"}}}}]}
+
+## POST /v1/offers(.{format})
+
++ Parameters
+
+    + data (optional, string, `{"type"=>"offers", "attributes"=>{"email"=>"danika@ebert.com"}, "relationships"=>{"locations"=>{"data"=>[{"type"=>"locations", "id"=>"d1c984ef-73eb-401c-9a53-e503fb5c8002"}]}, "offer-times"=>{"data"=>[{"type"=>"offer-times", "attributes"=>{"time"=>"2012-12-27 00:00:00 +0000"}}]}}}`) ...
+    + offer (optional, string, `{}`) ...
+
++ Request
+
+    + Headers
+
+
+    + Body
+
+            {"data":{"type":"offers","attributes":{"email":"danika@ebert.com"},"relationships":{"locations":{"data":[{"type":"locations","id":"d1c984ef-73eb-401c-9a53-e503fb5c8002"}]},"offer-times":{"data":[{"type":"offer-times","attributes":{"time":"2012-12-27 00:00:00 +0000"}}]}}}}
+
++ Response 200
+
+    works
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            ETag: W/"a72e623e0cd3457d2716d1e5247734ae"
+            Cache-Control: max-age=0, private, must-revalidate
+            X-Request-Id: dddfdcad-32ac-46e0-8c7a-5449efaeb05f
+            X-Runtime: 0.228838
+            Vary: Origin
+            Content-Length: 418
+
+    + Body
+
+            {"data":{"id":"74536517-c2e3-491f-ab37-0a3cfaeae6c4","type":"offers","attributes":{"email":"","confirmed":false},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=74536517-c2e3-491f-ab37-0a3cfaeae6c4"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer-times?filter%5Boffer_id_eq%5D=74536517-c2e3-491f-ab37-0a3cfaeae6c4"}}}}}
+
++ Response 422
+
+    is unprocessable
+
+    + Headers
+
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: 1; mode=block
+            X-Content-Type-Options: nosniff
+            Content-Type: application/vnd.api+json; charset=utf-8
+            Cache-Control: no-cache
+            X-Request-Id: 415aa8e3-f75f-4eb8-8907-3316cf8401fc
+            X-Runtime: 0.036391
+            Vary: Origin
             Content-Length: 188
 
     + Body
@@ -238,7 +398,7 @@ HOST: https://letsintegrate.de/api
 + Parameters
 
     + {} (optional, string, ``) ...
-    + id (required, string, `8faf314e-c713-4fea-9c5f-c34f264d0555`) ...
+    + id (required, string, `f22ba3be-ff94-43ee-b7bb-ccd8e881c586`) ...
     + offer (optional, string, `{}`) ...
 
 + Request
@@ -256,41 +416,23 @@ HOST: https://letsintegrate.de/api
             X-XSS-Protection: 1; mode=block
             X-Content-Type-Options: nosniff
             Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"f9c5c7bd74c4a9e095f4991df6296476"
+            ETag: W/"0a62b392402ed8332dc86c220c3549b4"
             Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 8a3eda8a-5751-47ef-a61e-a47456e66afc
-            X-Runtime: 0.030572
-            Content-Length: 420
+            X-Request-Id: 4855627d-db72-424b-8cc7-6a73e25e3653
+            X-Runtime: 0.021909
+            Vary: Origin
+            Content-Length: 417
 
     + Body
 
-            {"data":{"id":"8faf314e-c713-4fea-9c5f-c34f264d0555","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=8faf314e-c713-4fea-9c5f-c34f264d0555"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=8faf314e-c713-4fea-9c5f-c34f264d0555"}}}}}
-
-+ Response 404
-
-    fails for not confirmed records
-
-    + Headers
-
-            X-Frame-Options: SAMEORIGIN
-            X-XSS-Protection: 1; mode=block
-            X-Content-Type-Options: nosniff
-            Content-Type: application/vnd.api+json; charset=utf-8
-            Cache-Control: no-cache
-            X-Request-Id: c399e50d-4adb-4c47-8d3e-66f1d6f3c53b
-            X-Runtime: 0.055322
-            Content-Length: 143
-
-    + Body
-
-            {"status":404,"message":"Couldn't find Offer with 'id'=9568d60e-6717-45d2-8b72-684d4985b287 [WHERE (\"offers\".\"confirmed_at\" IS NOT NULL)]"}
+            {"data":{"id":"f22ba3be-ff94-43ee-b7bb-ccd8e881c586","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=f22ba3be-ff94-43ee-b7bb-ccd8e881c586"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer-times?filter%5Boffer_id_eq%5D=f22ba3be-ff94-43ee-b7bb-ccd8e881c586"}}}}}
 
 ## PATCH /v1/offers/{id}/confirm(.{format})
 
 + Parameters
 
-    + token (optional, string, `EbmfEvXZteVRjRFP`) ...
-    + id (required, string, `bc450181-38e2-4e2f-95da-da8eefec3be1`) ...
+    + token (optional, string, `bnipcd59bmJ8qG7G`) ...
+    + id (required, string, `198148b9-9a44-4b36-8617-87395742b3a8`) ...
     + offer (optional, string, `{}`) ...
 
 + Request
@@ -312,15 +454,16 @@ HOST: https://letsintegrate.de/api
             X-XSS-Protection: 1; mode=block
             X-Content-Type-Options: nosniff
             Content-Type: application/vnd.api+json; charset=utf-8
-            ETag: W/"d6ec3a889251f94979f3fd951a392284"
+            ETag: W/"c99b4fe056e190cfb0b45da192f91fcc"
             Cache-Control: max-age=0, private, must-revalidate
-            X-Request-Id: 6cde3395-bd85-40c4-972f-b4c44ac69427
-            X-Runtime: 0.042593
-            Content-Length: 420
+            X-Request-Id: e5db6534-925f-4972-9b01-d145e320fa5d
+            X-Runtime: 0.036327
+            Vary: Origin
+            Content-Length: 417
 
     + Body
 
-            {"data":{"id":"bc450181-38e2-4e2f-95da-da8eefec3be1","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=bc450181-38e2-4e2f-95da-da8eefec3be1"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer_times?filter%5Blocation_id_eq%5D=bc450181-38e2-4e2f-95da-da8eefec3be1"}}}}}
+            {"data":{"id":"198148b9-9a44-4b36-8617-87395742b3a8","type":"offers","attributes":{"email":"","confirmed":true},"relationships":{"locations":{"links":{"related":"http://www.example.com/v1/locations?filter%5Boffer_locations_offer_id_eq%5D=198148b9-9a44-4b36-8617-87395742b3a8"}},"offer-times":{"links":{"related":"http://www.example.com/v1/offer-times?filter%5Boffer_id_eq%5D=198148b9-9a44-4b36-8617-87395742b3a8"}}}}}
 
 + Response 422
 
@@ -333,8 +476,9 @@ HOST: https://letsintegrate.de/api
             X-Content-Type-Options: nosniff
             Content-Type: application/vnd.api+json; charset=utf-8
             Cache-Control: no-cache
-            X-Request-Id: 974cedb9-d5e4-43fa-9a0b-1d96f46257f2
-            X-Runtime: 0.042661
+            X-Request-Id: 3b3f2a70-c3da-4840-884e-deb2bc1c2aaa
+            X-Runtime: 0.010190
+            Vary: Origin
             Content-Length: 114
 
     + Body

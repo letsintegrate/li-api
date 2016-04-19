@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       patch :confirm, on: :member, as: :confirm
       put   :confirm, on: :member
     end
+    resources :offer_items
     resources :offer_times, path: 'offer-times'
   end
 end

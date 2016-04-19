@@ -3,10 +3,10 @@ class Offer < ActiveRecord::Base
   tokenize :cancelation_token, length: 16
 
   # Relationships
-  has_many :appointments, inverse_of: :offer
+  has_many :appointments, inverse_of: :offer, dependent: :destroy
   has_many :locations, through: :offer_locations
-  has_many :offer_locations, inverse_of: :offer
-  has_many :offer_times, inverse_of: :offer
+  has_many :offer_locations, inverse_of: :offer, dependent: :destroy
+  has_many :offer_times, inverse_of: :offer, dependent: :destroy
 
   # Validations
   validates :email, presence: true, email: true
