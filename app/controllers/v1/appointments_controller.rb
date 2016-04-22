@@ -1,5 +1,7 @@
 module V1
   class AppointmentsController < BaseController
+    before_action :set_appointment, only: %i(show)
+
     def create
       @appointment = Appointment.create!(appointment_params.to_hash)
       AppointmentMailer.confirmation(@appointment).deliver_now
@@ -13,7 +15,15 @@ module V1
       render json: @appointment, serializer: AppointmentSerializer
     end
 
+    def show
+      render json: @appointment, serializer: AppointmentSerializer
+    end
+
     private
+
+    def set_appointment
+      @appointment = Appointment.find(params[:id])
+    end
 
     def appointment_params
       whitelist = %i(appointment_times_attributes location_ids)
