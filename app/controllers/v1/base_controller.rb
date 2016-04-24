@@ -2,6 +2,7 @@ module V1
   class BaseController < ApplicationController
     include Concerns::ExceptionHandling
     include Concerns::GetIndex
+    include Concerns::Locale
     include Concerns::SerializerPreparation
     include Rails::API::HashValidationErrors
 

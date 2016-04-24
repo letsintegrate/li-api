@@ -12,4 +12,16 @@ RSpec.describe V1::BaseController, type: :controller do
       expect(subject).to respond_to(:get_index).with(1).argument
     end
   end
+
+  describe '#set_locale' do
+    it 'exists' do
+      expect(subject).to respond_to(:set_locale).with(0).argument
+    end
+
+    it 'sets the locale to the given header' do
+      @request.env["X_LOCALE"] = 'bar'
+      subject.set_locale
+      expect(subject.locale).to eql('bar')
+    end
+  end
 end
