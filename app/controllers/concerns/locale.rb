@@ -3,7 +3,7 @@ module Concerns
     attr_reader :locale
 
     def set_locale
-      @locale = request.env['X_LOCALE']
+      @locale = request.env['HTTP_X_LOCALE']
     end
 
     def self.included(receiver)

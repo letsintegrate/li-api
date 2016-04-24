@@ -19,7 +19,7 @@ RSpec.describe V1::BaseController, type: :controller do
     end
 
     it 'sets the locale to the given header' do
-      @request.env["X_LOCALE"] = 'bar'
+      @request.env["HTTP_X_LOCALE"] = 'bar'
       subject.set_locale
       expect(subject.locale).to eql('bar')
     end

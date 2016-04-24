@@ -5,9 +5,10 @@ class ReportsMailer < ApplicationMailer
   #
   #   en.reports_mailer.email_address_records.subject
   #
-  def email_address_records(email)
+  def email_address_records(email, locale = 'en')
     @offers = Offer.where(email: email)
     @appointments = Appointment.where(email: email)
+    @locale = locale.present? ? locale : 'en'
 
     mail to: email
   end
