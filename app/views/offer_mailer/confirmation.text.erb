@@ -1,7 +1,10 @@
-Thank you for your offer! Please confirm your e-Mail
-address by opening the following link.
+Thank you for your offer! Please confirm your email address by opening the link
 
-http://letsintegrate.de/en/offers/<%= @offer.id %>/confirm/<%= @offer.confirmation_token %>
+http://letsintegrate.de/<%= @locale %>/offers/<%= @offer.id %>/confirm?token=<%= @offer.confirmation_token %>
+
+and enter the confirmation code
+
+    <%= @offer.confirmation_token %>
 
 Kind regards,
 Let's integrate

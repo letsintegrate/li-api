@@ -5,13 +5,14 @@ class AppointmentMailer < ApplicationMailer
   #
   #   en.appointment_mailer.confirmation.subject
   #
-  def confirmation(appointment)
+  def confirmation(appointment, locale = 'en')
     @appointment = appointment
+    @locale = locale
 
     mail to: appointment.email
   end
 
-  def match(appointment)
+  def match(appointment, locale = 'en')
     @appointment = appointment
 
     mail to: 'appointments@letsintegrate.de'

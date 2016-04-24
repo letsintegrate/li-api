@@ -102,8 +102,9 @@ RSpec.describe V1::OffersController, type: :controller do
       end
 
       it 'calls OfferMailer#confirmation' do
+        @request.env['X_LOCALE'] = 'en'
         expect(OfferMailer).to receive(:confirmation)
-          .with(Offer)
+          .with(Offer, 'en')
           .and_return(OfferMailer.confirmation(offer))
         post :create, data: data
       end

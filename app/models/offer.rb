@@ -1,5 +1,5 @@
 class Offer < ActiveRecord::Base
-  tokenize :confirmation_token, length: 16
+  tokenize :confirmation_token, characters: (0..9).to_a, length: 5
   tokenize :cancelation_token, length: 16
 
   # Relationships

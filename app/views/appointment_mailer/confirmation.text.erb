@@ -1,6 +1,10 @@
-Please confirm your e-Mail address by opening the following link.
+Please confirm your e-Mail address by opening the link
 
-http://letsintegrate.de/en/appointments/<%= @appointment.id %>/confirm/<%= @appointment.confirmation_token %>
+https://letsintegrate.de/<%= locale %>/appointments/<%= @appointment.id %>/confirm?token=<%= @appointment.confirmation_token %>
+
+and enter the confirmation code
+
+    <%= @appointment.confirmation_token %>
 
 Kind regards,
 Let's integrate

@@ -9,7 +9,7 @@ module V1
 
     def create
       @offer = Offer.create!(offer_params.to_hash)
-      OfferMailer.confirmation(@offer).deliver_now
+      OfferMailer.confirmation(@offer, locale).deliver_now
       render json: @offer, serializer: OfferSerializer
     end
 

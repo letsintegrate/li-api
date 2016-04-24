@@ -1,5 +1,5 @@
 class Appointment < ActiveRecord::Base
-  tokenize :confirmation_token
+  tokenize :confirmation_token, characters: (0..9).to_a, length: 5
   tokenize :cancelation_token
 
   # Relationships

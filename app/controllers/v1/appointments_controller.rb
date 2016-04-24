@@ -11,7 +11,7 @@ module V1
     def confirm
       @appointment = Appointment.find(params[:id])
       @appointment.confirm!(params[:token])
-      AppointmentMailer.match(@appointment).deliver_now
+      AppointmentMailer.match(@appointment, locale).deliver_now
       render json: @appointment, serializer: AppointmentSerializer
     end
 
