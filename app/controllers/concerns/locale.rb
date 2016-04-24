@@ -7,7 +7,7 @@ module Concerns
     end
 
     def self.included(receiver)
-      receiver.before_action :set_local
+      receiver.before_action :set_locale
     end
   end
 end
