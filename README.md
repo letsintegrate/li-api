@@ -97,8 +97,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## Supported by
 
 <a href="http://github.com/">
-  <img src="/github.png" alt="GitHub" height="40px">
+  <img src="/github.png?cefc20232703e5e3c24efd5f50d75e26" alt="GitHub" height="40px">
 </a>
 <a href="http://browserstack.com/">
-  <img src="/browserstack.png" alt="BrowserStack" height="40px">
+  <img src="/browserstack.png?c25aa4c83d0233abc8c1905a18f26c1a" alt="BrowserStack" height="40px">
 </a>
