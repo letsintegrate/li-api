@@ -1,4 +1,4 @@
-class CreateOfferItemsView < ActiveRecord::Migration
+class UpdateViewToOnlyShowOffersNotEndingWithinTheNext24Hours < ActiveRecord::Migration
   def up
     select = Offer.select('
       uuid_generate_v4() AS id,
@@ -17,8 +17,5 @@ class CreateOfferItemsView < ActiveRecord::Migration
     ActiveRecord::Base.connection.execute(
       "CREATE OR REPLACE VIEW offer_items AS #{select}"
     )
-  end
-
-  def down
   end
 end
