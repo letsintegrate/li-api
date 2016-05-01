@@ -12,11 +12,11 @@ FactoryGirl.define do
     end
 
     trait :upcoming do
-      sequence(:time) { |n| Time.now + n.hours }
+      sequence(:time) { |n| 30.hours.from_now }
     end
 
     trait :expired do
-      sequence(:time) { |n| Time.now - n.hours }
+      sequence(:time) { |n| 20.hours.from_now }
     end
   end
 
