@@ -15,10 +15,10 @@ class OfferTime < ActiveRecord::Base
         appointments.offer_id = offers.id AND
         appointments.canceled_at IS NULL AND
         (
-          appointments.created_at > ? OR
+          appointments.created_at > (now() - interval ?) OR
           appointments.confirmed_at IS NOT NULL
         )
-    ) = 0', 2.hours.ago)
+    ) = 0', '2 hours')
   end
 
   def self.location(id)
@@ -28,7 +28,7 @@ class OfferTime < ActiveRecord::Base
   end
 
   def self.upcoming
-    where('offer_times.time >= ?', Time.zone.now)
+    where('offer_times.time >= (now() + interval ?)', '24 hours')
   end
 
   private
