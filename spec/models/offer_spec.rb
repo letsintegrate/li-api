@@ -16,6 +16,7 @@ RSpec.describe Offer, type: :model do
   it { should have_db_column(:confirmed_at).of_type :datetime }
   it { should have_db_column(:cancelation_token).of_type :string }
   it { should have_db_column(:canceled_at).of_type :datetime }
+  it { should have_db_column(:locale).of_type :string }
 
   # Validations
   it { should validate_presence_of :email }

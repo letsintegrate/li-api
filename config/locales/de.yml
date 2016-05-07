@@ -1,0 +1,12 @@
+de:
+  offer_mailer:
+    confirmation:
+      subject: 'Bestätige Deine E-Mail-Adresse'
+
+  appointment_mailer:
+    confirmation:
+      subject: 'Bestätige Deine E-Mail-Adresse'
+
+  reports_mailer:
+    email_address_records:
+      subject: "Deine Termine bei Let's integrate!"

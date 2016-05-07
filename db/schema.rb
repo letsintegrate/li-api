@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429194302) do
+ActiveRecord::Schema.define(version: 20160507060109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20160429194302) do
     t.datetime "confirmed_at"
     t.string   "cancelation_token"
     t.datetime "canceled_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "locale",             limit: 2, default: "en"
   end
 
   add_index "appointments", ["location_id"], name: "index_appointments_on_location_id", using: :btree
@@ -68,8 +69,9 @@ ActiveRecord::Schema.define(version: 20160429194302) do
     t.string   "cancelation_token"
     t.datetime "confirmed_at"
     t.datetime "canceled_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "locale",             limit: 2, default: "en"
   end
 
   add_foreign_key "appointments", "locations"

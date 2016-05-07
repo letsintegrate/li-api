@@ -114,6 +114,13 @@ RSpec.describe V1::OffersController, type: :controller do
           post :create, data: data
         }.to change { OfferMailer.deliveries.count }.by(1)
       end
+
+      it 'stores the X-Locale header at the offer' do
+        request.headers['HTTP_X_LOCALE'] = 'ar'
+        post :create, data: data
+        offer = assigns(:offer)
+        expect(offer.locale).to eql('ar')
+      end
     end
 
     describe 'with invalid data' do

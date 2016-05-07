@@ -3,7 +3,7 @@ module V1
     before_action :set_appointment, only: %i(show)
 
     def create
-      @appointment = Appointment.create!(appointment_params.to_hash)
+      @appointment = Appointment.create!(appointment_params)
       AppointmentMailer.confirmation(@appointment).deliver_now
       render json: @appointment, serializer: AppointmentSerializer
     end
@@ -34,7 +34,7 @@ module V1
           data = parameters[key]
           whitelisted[key] = data if data.present?
         end
-      end
+      end.to_hash.merge(locale: I18n.locale)
     end
   end
 end

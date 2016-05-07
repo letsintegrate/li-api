@@ -62,6 +62,13 @@ RSpec.describe V1::AppointmentsController, type: :controller do
           post :create, data: data
         }.to change { AppointmentMailer.deliveries.count }.by(1)
       end
+
+      it 'stores the X-Locale header at the appointment' do
+        request.headers['HTTP_X_LOCALE'] = 'ar'
+        post :create, data: data
+        appointment = assigns(:appointment)
+        expect(appointment.locale).to eql('ar')
+      end
     end
 
     describe 'with invalid data' do

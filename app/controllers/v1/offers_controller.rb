@@ -8,7 +8,7 @@ module V1
     end
 
     def create
-      @offer = Offer.create!(offer_params.to_hash)
+      @offer = Offer.create!(offer_params)
       OfferMailer.confirmation(@offer, locale).deliver_now
       render json: @offer, serializer: OfferSerializer
     end
@@ -37,7 +37,7 @@ module V1
           data = parameters[key]
           whitelisted[key] = data if data.present?
         end
-      end
+      end.to_hash.merge(locale: I18n.locale)
     end
   end
 end
