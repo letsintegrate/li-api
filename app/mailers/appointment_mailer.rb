@@ -18,4 +18,20 @@ class AppointmentMailer < ApplicationMailer
 
     mail to: 'appointments@letsintegrate.de'
   end
+
+  def remind_local(appointment)
+    I18n.with_locale(appointment.offer.locale) do
+      @appointment = appointment
+
+      mail to: appointment.offer.email
+    end
+  end
+
+  def remind_refugee(appointment)
+    I18n.with_locale(appointment.locale) do
+      @appointment = appointment
+
+      mail to: appointment.email
+    end
+  end
 end

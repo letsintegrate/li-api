@@ -1,4 +1,13 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
+Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
+end
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web, at: "/sidekiq"
+
   namespace :v1 do
     resources :appointments do
       patch :confirm, on: :member, as: :confirm

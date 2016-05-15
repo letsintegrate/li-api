@@ -6,6 +6,9 @@ gem 'rails',                            '4.2.6'
 # Database
 gem 'pg',                               '~> 0.18'
 
+# Redis
+gem 'redis-namespace',                  '~> 1.5', '>= 1.5.2'
+
 # Server
 gem 'puma',                             '~> 3.2.0'
 
@@ -32,15 +35,17 @@ gem 'pundit_namespaces',                '~> 0.1.1'
 # Order number generation
 gem 'ar-tokens',                        '~> 0.0.6'
 
-# Remote models
-gem 'her',                              '~> 0.8.1'
-
 # Serialization
 gem 'active_model_serializers',         github: 'rails-api/active_model_serializers'
 gem 'active_model_serializers-jsonapi_embedded_records_deserializer', '0.1.1'
 
 # Validations
 gem 'email_validator',                  '~> 1.6'
+
+# Automation
+gem 'sidekiq',                          '~> 4.1', '>= 4.1.2'
+gem 'sidekiq-scheduler',                '~> 2.0', '>= 2.0.6'
+gem 'sinatra',                          :require => nil
 
 ###############################################
 # Development dependencies
