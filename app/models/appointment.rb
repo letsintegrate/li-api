@@ -9,6 +9,7 @@ class Appointment < ActiveRecord::Base
 
   # Validations
   validates :email, presence: true, email: true
+  validate  :offer_available, on: :create
 
   # Methods
   def cancel!(token)
@@ -30,5 +31,11 @@ class Appointment < ActiveRecord::Base
   def token_exception
     errors.add(:confirmation_token, :invalid)
     raise TokenMissmatch.new(self)
+  end
+
+  def offer_available
+    if self.offer.try(:taken?)
+      errors.add(:offer, 'unavailable')
+    end
   end
 end

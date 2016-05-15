@@ -33,6 +33,32 @@ RSpec.describe Appointment, type: :model do
   it { should allow_value('john@example.com').for(:email) }
   it { should_not allow_value('john.example.com').for(:email) }
 
+  describe 'validation' do
+    it 'fails if offer has a confirmed appointment' do
+      subject = FactoryGirl.create(:appointment, :confirmed)
+      appointment = FactoryGirl.build(:appointment, offer: subject.offer)
+      expect(appointment).to_not be_valid
+    end
+
+    it 'fails if offer has an unconfirmed valid appointment' do
+      subject = FactoryGirl.create(:appointment)
+      appointment = FactoryGirl.build(:appointment, offer: subject.offer)
+      expect(appointment).to_not be_valid
+    end
+
+    it 'succeeds if offer has no appointment' do
+      offer = FactoryGirl.create(:offer, :confirmed, :upcoming)
+      appointment = FactoryGirl.build(:appointment, offer: offer)
+      expect(appointment).to be_valid
+    end
+
+    it 'succeeds if offer has an outdated appointment' do
+      subject     = FactoryGirl.create(:appointment, created_at: 3.hours.ago)
+      appointment = FactoryGirl.build(:appointment, offer: subject.offer)
+      expect(appointment).to be_valid
+    end
+  end
+
   # Methods
   it { should respond_to(:confirm!).with(1).argument }
   it { should respond_to(:cancel!).with(1).argument }

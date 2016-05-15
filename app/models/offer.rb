@@ -56,6 +56,12 @@ class Offer < ActiveRecord::Base
     canceled_at.present?
   end
 
+  def taken?
+    appointments.where(canceled_at: nil).where('
+      created_at > (now() - interval ?) OR confirmed_at IS NOT NULL
+    ', '2 hours').exists?
+  end
+
   private
 
   def token_exception
