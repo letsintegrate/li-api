@@ -17,7 +17,7 @@ class Offer < ActiveRecord::Base
   accepts_nested_attributes_for :offer_times
 
   # Geocoding
-  after_validation :geocode
+  after_validation :execute_geocoding
 
   # Scopes
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -74,9 +74,9 @@ class Offer < ActiveRecord::Base
     raise TokenMissmatch.new(self)
   end
 
-  def geocode
+  def execute_geocoding
     return if confirmation_ip_address.blank?
-    result = Geocoder.search(confirmation_ip_address).first
+    result = Geocoder.search(confirmation_ip_address.to_s).first
     return unless result
     self.lng = result.longitude
     self.lat = result.latitude

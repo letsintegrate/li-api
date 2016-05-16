@@ -12,7 +12,7 @@ class Appointment < ActiveRecord::Base
   validate  :offer_available, on: :create
 
   # Geocoding
-  after_validation :geocode
+  after_validation :execute_geocoding
 
   # Methods
   def cancel!(token)
@@ -44,9 +44,9 @@ class Appointment < ActiveRecord::Base
     end
   end
 
-  def geocode
+  def execute_geocoding
     return if confirmation_ip_address.blank?
-    result = Geocoder.search(confirmation_ip_address).first
+    result = Geocoder.search(confirmation_ip_address.to_s).first
     return unless result
     self.lng = result.longitude
     self.lat = result.latitude
