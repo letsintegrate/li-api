@@ -13,6 +13,11 @@ RSpec.describe Appointment, type: :model do
   it { should have_db_column(:cancelation_token).of_type :string }
   it { should have_db_column(:canceled_at).of_type :datetime }
   it { should have_db_column(:locale).of_type :string }
+  it { should have_db_column(:confirmation_ip_address).of_type :inet }
+  it { should have_db_column(:country).of_type :string }
+  it { should have_db_column(:city).of_type :string }
+  it { should have_db_column(:lat).of_type :float }
+  it { should have_db_column(:lng).of_type :float }
 
   describe '#canceled_at' do
     subject { FactoryGirl.build(:appointment).canceled_at }
