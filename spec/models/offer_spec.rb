@@ -20,8 +20,8 @@ RSpec.describe Offer, type: :model do
 
   # Validations
   it { should validate_presence_of :email }
-  it { should allow_value('john@example.com').for(:email) }
-  it { should_not allow_value('john.example.com').for(:email) }
+  it { should allow_value('john@gmail.com').for(:email) }
+  it { should_not allow_value('john.gmail.com').for(:email) }
   it { should allow_value([location]).for(:locations) }
   it { should_not allow_value([]).for(:locations) }
   it { should allow_value([offer_time]).for(:offer_times) }

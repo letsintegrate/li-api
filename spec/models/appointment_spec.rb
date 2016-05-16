@@ -30,8 +30,8 @@ RSpec.describe Appointment, type: :model do
   it { should validate_presence_of :offer }
   it { should validate_presence_of :offer_time }
   it { should validate_presence_of :email }
-  it { should allow_value('john@example.com').for(:email) }
-  it { should_not allow_value('john.example.com').for(:email) }
+  it { should allow_value('john@gmail.com').for(:email) }
+  it { should_not allow_value('john.gmail.com').for(:email) }
 
   describe 'validation' do
     it 'fails if offer has a confirmed appointment' do
