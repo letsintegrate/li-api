@@ -1,10 +1,14 @@
 db:
   image: postgres:9.4.1
 
+redis:
+  image: redis:3
+
 web:
   build: ./../
   links:
     - db
+    - redis
   environment:
     - SECRET_KEY_BASE=a8b58c11a63f19cb6e0dfa1baf547aa4746545ebf7c955958976c82271be2a8b260f74cf45aefb20014c4c614bc345670739aaa7810f8c812f48bae181f03880
     - RAILS_ENV=test
