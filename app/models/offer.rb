@@ -82,8 +82,8 @@ class Offer < ActiveRecord::Base
         unless r.latitude.nil? or r.longitude.nil?
           o.__send__  "#{self.class.geocoder_options[:latitude]}=",  r.latitude
           o.__send__  "#{self.class.geocoder_options[:longitude]}=", r.longitude
-          o.__send__  "#{self.class.geocoder_options[:country]}=",   r.country
-          o.__send__  "#{self.class.geocoder_options[:city]}=",      r.city
+          o.__send__  "country=",   r.country
+          o.__send__  "city=",      r.city
         end
         r.coordinates
       end
