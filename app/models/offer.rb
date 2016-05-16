@@ -38,9 +38,11 @@ class Offer < ActiveRecord::Base
   end
 
   # Methods
-  def confirm!(token)
+  def confirm!(token, options = {})
     token_exception unless token == confirmation_token
-    update!(confirmed_at: Time.zone.now)
+    data = { confirmed_at: Time.zone.now }
+    data[:confirmation_ip_address] = options[:ip] if options[:ip]
+    update!(data)
   end
 
   def confirmed?
