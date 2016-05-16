@@ -9,7 +9,7 @@ class Offer < ActiveRecord::Base
   has_many :offer_times, inverse_of: :offer, dependent: :destroy
 
   # Validations
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, email_blacklist: true
   validates :locations, presence: true
   validates :offer_times, presence: true
 

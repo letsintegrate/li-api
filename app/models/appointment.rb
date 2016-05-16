@@ -8,7 +8,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :offer, required: true
 
   # Validations
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, email_blacklist: true
   validate  :offer_available, on: :create
 
   # Methods
