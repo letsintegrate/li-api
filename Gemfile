@@ -47,6 +47,9 @@ gem 'sidekiq',                          '~> 4.1', '>= 4.1.2'
 gem 'sidekiq-scheduler',                '~> 2.0', '>= 2.0.6'
 gem 'sinatra',                          :require => nil
 
+# Bot detection
+gem 'recaptcha',                        '~> 1.3'
+
 ###############################################
 # Development dependencies
 ###############################################

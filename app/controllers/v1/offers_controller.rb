@@ -19,6 +19,7 @@ module V1
 
     def confirm
       @offer = Offer.find(params[:id])
+      verify_recaptcha!(@offer)
       @offer.confirm!(params[:token])
       render json: @offer, serializer: OfferSerializer
     end

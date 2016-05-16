@@ -23,6 +23,9 @@ web:
     - bundle
   environment:
     - DISABLE_SPRING=true
+    # Development-Keys
+    - RECAPTCHA_PRIVATE_KEY=6LcI_B8TAAAAALiyxXRYc02WOXnc3seOv4PuD052
+    - RECAPTCHA_PUBLIC_KEY=6LcI_B8TAAAAAEoy4Tt3ulT4a-3FFBR6aQGCWPA8
 
 bundle:
   image: letsintegrate_web

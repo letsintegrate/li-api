@@ -10,6 +10,7 @@ module V1
 
     def confirm
       @appointment = Appointment.find(params[:id])
+      verify_recaptcha!(@offer)
       @appointment.confirm!(params[:token])
       AppointmentMailer.match(@appointment, locale).deliver_now
       render json: @appointment, serializer: AppointmentSerializer
