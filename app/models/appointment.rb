@@ -12,8 +12,6 @@ class Appointment < ActiveRecord::Base
   validate  :offer_available, on: :create
 
   # Geocoding
-  geocoded_by :confirmation_ip_address,
-    latitude: :lat, longitude: :lng, country: :country, city: :city
   after_validation :geocode
 
   # Methods
@@ -47,16 +45,14 @@ class Appointment < ActiveRecord::Base
   end
 
   def geocode
-    do_lookup(false) do |o,rs|
-      if r = rs.first
-        unless r.latitude.nil? or r.longitude.nil?
-          o.__send__  "#{self.class.geocoder_options[:latitude]}=",  r.latitude
-          o.__send__  "#{self.class.geocoder_options[:longitude]}=", r.longitude
-          o.__send__  "country=",   r.country
-          o.__send__  "city=",      r.city
-        end
-        r.coordinates
-      end
-    end
+    return if confirmation_ip_address.blank?
+    result = Geocoder.search(confirmation_ip_address).first
+    return unless result
+    self.lng = result.longitude
+    self.lat = result.latitude
+    self.country = result.country
+    self.city = result.city
+  rescue
+    nil
   end
 end
