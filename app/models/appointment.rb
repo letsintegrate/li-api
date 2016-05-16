@@ -11,6 +11,11 @@ class Appointment < ActiveRecord::Base
   validates :email, presence: true, email: true, email_blacklist: true
   validate  :offer_available, on: :create
 
+  # Geocoding
+  geocoded_by :confirmation_ip_address,
+    latitude: :lat, longitude: :lng, country: :country, city: :city
+  after_validation :geocode
+
   # Methods
   def cancel!(token)
     token_exception unless token == cancelation_token

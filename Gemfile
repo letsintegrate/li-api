@@ -50,6 +50,9 @@ gem 'sinatra',                          :require => nil
 # Bot detection
 gem 'recaptcha',                        '~> 1.3'
 
+# Geocoding
+gem 'geocoder',                         '~> 1.3'
+
 ###############################################
 # Development dependencies
 ###############################################

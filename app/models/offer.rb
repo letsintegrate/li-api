@@ -16,6 +16,11 @@ class Offer < ActiveRecord::Base
   # Nested attributes
   accepts_nested_attributes_for :offer_times
 
+  # Geocoding
+  geocoded_by :confirmation_ip_address,
+    latitude: :lat, longitude: :lng, country: :country, city: :city
+  after_validation :geocode
+
   # Scopes
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :not_canceled, -> { where(canceled_at: nil) }
