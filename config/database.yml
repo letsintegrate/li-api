@@ -83,4 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: letsintegrate_development
+  database: letsintegrate_production
+  username: letsintegrate
+  password: <%= ENV['LETSINTEGRATE_DATABASE_PASSWORD'] %>
