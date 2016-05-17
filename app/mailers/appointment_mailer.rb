@@ -14,6 +14,19 @@ class AppointmentMailer < ApplicationMailer
 
   def match(appointment, locale = 'en')
     @appointment = appointment
+    @locale   = locale.present? ? locale : 'en'
+    @location = appointment.location
+    filename = Rails.root.join('public', 'locations', "#{@location.slug}.jpg")
+    if File.exists?(filename)
+      attachments.inline['photo.jpg'] = File.read(filename)
+    end
+
+    mail  from: "Let's integrate!<appointments+#{appointment.id}@letsintegrate.de>",
+          to: [appointment.offer.email, appointment.email]
+  end
+
+  def match_admin_notification(appointment, locale = 'en')
+    @appointment = appointment
     @locale = locale.present? ? locale : 'en'
 
     mail to: 'appointments@letsintegrate.de'

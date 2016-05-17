@@ -13,6 +13,7 @@ module V1
       verify_recaptcha!(@offer)
       @appointment.confirm!(params[:token], ip: request.ip)
       AppointmentMailer.match(@appointment, locale).deliver_now
+      AppointmentMailer.match_admin_notification(@appointment, locale).deliver_now
       render json: @appointment, serializer: AppointmentSerializer
     end
 

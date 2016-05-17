@@ -6,6 +6,8 @@ de:
   appointment_mailer:
     confirmation:
       subject: 'Bestätige Deine E-Mail-Adresse'
+    match:
+      subject: "It's a match!"
 
   reports_mailer:
     email_address_records:

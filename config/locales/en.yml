@@ -8,6 +8,8 @@ en:
   appointment_mailer:
     confirmation:
       subject: 'Confirm the e-mail address'
+    match:
+      subject: "It's a match!"
 
   reports_mailer:
     email_address_records:
