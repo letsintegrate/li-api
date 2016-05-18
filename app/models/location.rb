@@ -6,4 +6,7 @@ class Location < ActiveRecord::Base
   # Validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
+
+  # Scopes
+  scope :active, -> { where(active: true) }
 end

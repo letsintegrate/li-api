@@ -28,5 +28,13 @@ RSpec.describe V1::OfferItemsController, type: :controller do
       get :index
       expect(data.length).to eql(3)
     end
+
+    it 'excludes offer items of inactive locations' do
+      location = FactoryGirl.create :location, active: false
+      offer    = FactoryGirl.create :offer, locations: [location]
+      get :index
+      offers = assigns(:offer_items)
+      expect(offers).to_not include offer
+    end
   end
 end

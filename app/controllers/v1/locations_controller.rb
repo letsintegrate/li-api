@@ -3,7 +3,8 @@ module V1
     before_action :set_location, only: %i(show)
 
     def index
-      render json: get_index(Location), each_serializer: LocationSerializer
+      @locations = get_index(Location).active
+      render json: @locations, each_serializer: LocationSerializer
     end
 
     def show

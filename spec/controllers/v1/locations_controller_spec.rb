@@ -30,6 +30,13 @@ RSpec.describe V1::LocationsController, type: :controller do
       get :index, filter: { offers_id_eq: offer.id }
       expect(data.length).to eql(1)
     end
+
+    it 'excludes inactive locations' do
+      location = FactoryGirl.create :location, active: false
+      get :index
+      locations = assigns(:locations)
+      expect(locations).to_not include location
+    end
   end
 
   describe '#show' do
