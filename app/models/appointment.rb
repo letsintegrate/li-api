@@ -14,6 +14,16 @@ class Appointment < ActiveRecord::Base
   # Geocoding
   after_validation :execute_geocoding
 
+  # Scopes
+  def today
+    time = Time.now.beginning_of_day..Time.now.end_of_day
+    joins(:offer_time).where(offer_times: { time: time })
+  end
+
+  def valid
+    where.not(confirmed_at: nil).where(canceled_at: nil)
+  end
+
   # Methods
   def cancel!(token)
     token_exception unless token == cancelation_token
