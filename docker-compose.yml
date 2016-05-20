@@ -31,4 +31,4 @@ bundle:
   image: letsintegrate_web
   command: echo "I'm a little data container, short and stout..."
   volumes:
-    - /bundle
+    - /usr/local/bundle
