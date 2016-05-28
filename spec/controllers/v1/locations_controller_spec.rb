@@ -37,6 +37,24 @@ RSpec.describe V1::LocationsController, type: :controller do
       locations = assigns(:locations)
       expect(locations).to_not include location
     end
+
+    context 'filtering' do
+      describe '#regular' do
+        it 'includes regular locations' do
+          location = FactoryGirl.create :location
+          get :index
+          locations = assigns(:locations)
+          expect(locations).to include location
+        end
+
+        it 'excludes special locations' do
+          location = FactoryGirl.create :location, special: true
+          get :index, filter: { regular: true }
+          locations = assigns(:locations)
+          expect(locations).to_not include location
+        end
+      end
+    end
   end
 
   describe '#show' do

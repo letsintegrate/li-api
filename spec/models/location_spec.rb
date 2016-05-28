@@ -53,7 +53,7 @@ RSpec.describe Location, type: :model do
   describe '#ransackable_scopes' do
     subject { Location.ransackable_scopes }
 
-    it { should include :special }
+    it { should include :regular }
     it { should_not include :active }
   end
 end
