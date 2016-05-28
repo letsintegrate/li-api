@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517205600) do
+ActiveRecord::Schema.define(version: 20160528110700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,14 +45,16 @@ ActiveRecord::Schema.define(version: 20160517205600) do
   create_table "locations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "images",      default: [],                array: true
+    t.string   "images",      default: [],                 array: true
     t.string   "slug"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "active",      default: true
+    t.boolean  "special",     default: false
   end
 
   add_index "locations", ["active"], name: "index_locations_on_active", using: :btree
+  add_index "locations", ["special"], name: "index_locations_on_special", using: :btree
 
   create_table "offer_locations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "location_id"
