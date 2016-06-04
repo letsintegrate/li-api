@@ -16,7 +16,8 @@ ADD Gemfile* $APP_HOME/
 # Set Bundler cache directory outside of app scope
 ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
     BUNDLE_JOBS=2 \
-    BUNDLE_PATH=/usr/local/bundle
+    BUNDLE_PATH=/bundle
+ENV GEM_HOME=$BUNDLE_PATH
 
 # Fixing guard issues
 RUN gem install bundler
