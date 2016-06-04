@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::LocationsController, type: :controller do
+  let(:user) { FactoryGirl.create :user }
   let(:location) { FactoryGirl.create :location }
 
   before(:each) { location }
@@ -36,6 +37,14 @@ RSpec.describe V1::LocationsController, type: :controller do
       get :index
       locations = assigns(:locations)
       expect(locations).to_not include location
+    end
+
+    it 'exposes inactive locations to users' do
+      authenticate(user)
+      location = FactoryGirl.create :location, active: false
+      get :index
+      locations = assigns(:locations)
+      expect(locations).to include location
     end
 
     context 'filtering' do
