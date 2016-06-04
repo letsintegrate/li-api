@@ -11,10 +11,16 @@ RSpec.describe Location, type: :model do
   #
   it { should have_db_column(:id).of_type :uuid }
   it { should have_db_column(:name).of_type :string }
-  it { should have_db_column(:description).of_type :text }
   it { should have_db_column(:images).of_type :string }
   it { should have_db_column(:slug).of_type :string }
   it { should have_db_column(:special).of_type :boolean }
+
+  # Translated attributes
+  #
+  it { should respond_to :description }
+  it { should respond_to :description= }
+  it { should respond_to :description_translations }
+  it { should respond_to :description_translations= }
 
   # Validations
   #
@@ -55,5 +61,17 @@ RSpec.describe Location, type: :model do
 
     it { should include :regular }
     it { should_not include :active }
+  end
+
+  # Methods
+  describe '#description_translations' do
+    it 'sets all locale keys if a hash is given' do
+      subject.description_translations = {
+        de: 'hallo',
+        en: 'hello'
+      }
+      I18n.with_locale(:de) { expect(subject.description).to eql('hallo') }
+      I18n.with_locale(:en) { expect(subject.description).to eql('hello') }
+    end
   end
 end

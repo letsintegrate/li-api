@@ -1,4 +1,8 @@
 class Location < ActiveRecord::Base
+  # Translations
+  #
+  translates :description
+
   # Relationships
   #
   has_many :offer_locations

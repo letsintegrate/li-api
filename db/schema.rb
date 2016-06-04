@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604091423) do
+ActiveRecord::Schema.define(version: 20160604185709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,15 +42,25 @@ ActiveRecord::Schema.define(version: 20160604091423) do
   add_index "appointments", ["offer_time_id"], name: "index_appointments_on_offer_time_id", using: :btree
   add_index "appointments", ["reminder_sent"], name: "index_appointments_on_reminder_sent", using: :btree
 
+  create_table "location_translations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "location_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "description"
+  end
+
+  add_index "location_translations", ["locale"], name: "index_location_translations_on_locale", using: :btree
+  add_index "location_translations", ["location_id"], name: "index_location_translations_on_location_id", using: :btree
+
   create_table "locations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
-    t.text     "description"
-    t.string   "images",      default: [],                 array: true
+    t.string   "images",     default: [],                 array: true
     t.string   "slug"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "active",      default: true
-    t.boolean  "special",     default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "active",     default: true
+    t.boolean  "special",    default: false
   end
 
   add_index "locations", ["active"], name: "index_locations_on_active", using: :btree
