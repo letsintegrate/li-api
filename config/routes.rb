@@ -6,6 +6,7 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
 end
 
 Rails.application.routes.draw do
+  use_doorkeeper
   mount Sidekiq::Web, at: "/sidekiq"
 
   namespace :v1 do
@@ -21,5 +22,8 @@ Rails.application.routes.draw do
     end
     resources :offer_items, path: 'offer-items'
     resources :offer_times, path: 'offer-times'
+    resources :users do
+      get :me, on: :collection, as: :me
+    end
   end
 end

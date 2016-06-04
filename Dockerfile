@@ -17,7 +17,8 @@ ADD Gemfile* $APP_HOME/
 ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
     BUNDLE_JOBS=2 \
     BUNDLE_PATH=/bundle
-ENV GEM_HOME=$BUNDLE_PATH
+ENV GEM_HOME=$BUNDLE_PATH \
+    GEM_PATH=$BUNDLE_PATH
 
 # Fixing guard issues
 RUN gem install bundler

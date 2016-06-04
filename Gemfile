@@ -29,8 +29,11 @@ gem 'postgres_ext',                     '~> 3.0'
 gem 'globalize',                        '~> 5.0.0'
 
 # Authentication / Authorization
+gem 'bcrypt',                           '~> 3.1', '>= 3.1.11'
 gem 'pundit',                           '~> 1.0.1'
 gem 'pundit_namespaces',                '~> 0.1.1'
+gem 'doorkeeper',                       '~> 4.0.0.rc4'
+gem 'strong_password',                  '~> 0.0.5'
 
 # Order number generation
 gem 'ar-tokens',                        '~> 0.0.6'
