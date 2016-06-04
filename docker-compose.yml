@@ -28,7 +28,7 @@ web:
     - RECAPTCHA_PUBLIC_KEY=6LcI_B8TAAAAAEoy4Tt3ulT4a-3FFBR6aQGCWPA8
 
 bundle:
-  image: letsintegrate_web
+  image: maxexcloo/data
   command: echo "I'm a little data container, short and stout..."
   volumes:
-    - /usr/local/bundle
+    - /bundle
