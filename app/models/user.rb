@@ -7,5 +7,12 @@ class User < ActiveRecord::Base
   validates :password, password_strength: {
     use_dictionary: true,
     min_word_length: 8
-  }
+  }, if: :validate_password
+
+  attr_reader :validate_password
+
+  def password=(value)
+    @validate_password = true
+    super
+  end
 end

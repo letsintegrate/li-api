@@ -39,7 +39,7 @@ module V1
 
     def user_params
       deserialized_params.permit(:email, :password).reject do |key, value|
-        key === 'password' && value.empty?
+        key === 'password' && (value.nil? || value.empty?)
       end
     end
   end
