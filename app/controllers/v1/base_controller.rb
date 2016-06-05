@@ -19,5 +19,14 @@ module V1
         raise ActiveRecord::RecordNotSaved.new('invalid recaptcha', model)
       end
     end
+
+    def render(options = {})
+      if options.has_key?(:serializer) || options.has_key?(:each_serializer)
+        options.reverse_merge!(
+          admin?: current_user.present?
+        )
+      end
+      super(options)
+    end
   end
 end

@@ -9,7 +9,7 @@ module V1
 
     # Method
     def email
-      ''
+      instance_options[:admin?] ? object.email : ''
     end
 
     def confirmed

@@ -8,7 +8,7 @@ module V1
 
     # Attributes
     def email
-      ''
+      instance_options[:admin?] ? object.email : ''
     end
 
     def confirmed
