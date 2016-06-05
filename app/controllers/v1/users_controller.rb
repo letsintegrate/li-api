@@ -38,7 +38,9 @@ module V1
     end
 
     def user_params
-      deserialized_params.permit(:email, :password)
+      deserialized_params.permit(:email, :password).reject do |key, value|
+        key === 'password' && value.empty?
+      end
     end
   end
 end
