@@ -8,6 +8,10 @@ class Location < ActiveRecord::Base
   has_many :offer_locations
   has_many :offers, through: :offer_locations
 
+  # Images
+  #
+  mount_uploaders :images, LocationImageUploader
+
   # Validations
   #
   validates :name, presence: true, uniqueness: { case_sensitive: false }
@@ -22,5 +26,21 @@ class Location < ActiveRecord::Base
   #
   def self.ransackable_scopes(auth_object = nil)
     %i(regular)
+  end
+
+  # Image upload
+  #
+  def new_images=(images)
+    self.images += images.map do |image|
+      ActionDispatch::Http::UploadedFile.new(
+        filename:     image['original_filename'],
+        content_type: image['content_type'],
+        tempfile:     File.new(image['path'], 'r')
+      )
+    end
+  end
+
+  def new_images
+    []
   end
 end

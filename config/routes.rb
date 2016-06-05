@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
     resources :offer_items, path: 'offer-items'
     resources :offer_times, path: 'offer-times'
+    resources :tempfiles, only: %i(create)
     resources :users do
       get :me, on: :collection, as: :me
     end

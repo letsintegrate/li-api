@@ -56,6 +56,9 @@ gem 'recaptcha',                        '~> 1.3'
 # Geocoding
 gem 'geocoder',                         '~> 1.3'
 
+# Attachments
+gem 'carrierwave',                      github: 'carrierwaveuploader/carrierwave'
+
 ###############################################
 # Development dependencies
 ###############################################

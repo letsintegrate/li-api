@@ -35,7 +35,7 @@ module V1
     end
 
     def location_params
-      whitelist = %i(description_translations)
+      whitelist = %i(description_translations new_images)
       permitted = %i(name slug active special)
       parameters = deserialized_params
       parameters.permit(permitted).tap do |whitelisted|
