@@ -58,6 +58,7 @@ gem 'geocoder',                         '~> 1.3'
 
 # Attachments
 gem 'carrierwave',                      github: 'carrierwaveuploader/carrierwave'
+gem 'rmagick',                          '~> 2.15', '>= 2.15.4'
 
 ###############################################
 # Development dependencies
