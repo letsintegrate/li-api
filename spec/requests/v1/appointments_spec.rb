@@ -6,7 +6,36 @@ RSpec.describe "Appointments", type: :request do
   let(:location) { offer.locations.first }
   let(:appointment) { FactoryGirl.create :appointment, :confirmed }
 
+  let(:user) { FactoryGirl.create :user }
+  let(:application) { FactoryGirl.create :application }
+  let(:token) { Doorkeeper::AccessToken.create application: application, resource_owner_id: user.id }
+  let(:authorization) { "Bearer #{token.token}" }
+
   before(:each) { appointment }
+
+
+  describe "#index" do
+    it "works" do
+      get v1_appointments_path, nil, authorization: authorization
+      expect(response).to have_http_status(200)
+    end
+
+    it "is forbidden without authorization" do
+      get v1_appointments_path
+      expect(response).to be_unauthorized
+    end
+
+    it "works with ids parameter" do
+      get v1_appointments_path(ids: appointment.to_param), nil, authorization: authorization
+      expect(response).to have_http_status(200)
+    end
+
+    it "works with filters" do
+      user = FactoryGirl.create :user
+      get v1_appointments_path(filter: { id_eq: appointment.id }), nil, authorization: authorization
+      expect(response).to have_http_status(200)
+    end
+  end
 
   describe '#create' do
     it 'works' do

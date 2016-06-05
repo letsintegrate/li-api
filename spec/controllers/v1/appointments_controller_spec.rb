@@ -1,12 +1,76 @@
 require 'rails_helper'
 
 RSpec.describe V1::AppointmentsController, type: :controller do
+  let(:user) { FactoryGirl.create :user }
   let(:offer) { FactoryGirl.create :offer }
   let(:offer_time) { offer.offer_times.first }
   let(:location) { offer.locations.first }
   let(:appointment) { FactoryGirl.create :appointment, :confirmed }
 
   before(:each) { appointment }
+
+  describe '#index' do
+    before(:each) { FactoryGirl.create :appointment }
+
+    describe 'without authentication' do
+      it 'fails' do
+        get :index
+        expect(response).to be_unauthorized
+      end
+    end
+
+    describe 'with authentication' do
+      before(:each) { authenticate(user) }
+
+      it 'is successful' do
+        get :index
+        expect(response).to be_successful
+      end
+
+      it 'filters by ids array' do
+        ids = (1..3).map { FactoryGirl.create(:appointment).id }
+        get :index, ids: ids
+        expect(data.length).to eql ids.length
+      end
+
+      it 'filters by ids string' do
+        ids = (1..3).map { FactoryGirl.create(:appointment).id }
+        get :index, ids: ids.join(',')
+        expect(data.length).to eql ids.length
+      end
+
+      it 'filters the result' do
+        appointment = FactoryGirl.create :appointment
+        get :index, filter: { offer_id_eq: appointment.offer.id }
+        expect(data.length).to eql(1)
+      end
+
+      it 'invludes invalid appointments' do
+        appointment = FactoryGirl.create :appointment
+        get :index
+        appointments = assigns(:appointments)
+        expect(appointments).to include appointment
+      end
+
+      context 'filtering' do
+        describe '#valid' do
+          it 'includes valid appointments' do
+            appointment = FactoryGirl.create :appointment, :confirmed
+            get :index, filter: { valid: true }
+            appointments = assigns(:appointments)
+            expect(appointments).to include appointment
+          end
+
+          it 'excludes invalid appointments' do
+            appointment = FactoryGirl.create :appointment
+            get :index, filter: { valid: true }
+            appointments = assigns(:appointments)
+            expect(appointments).to_not include appointment
+          end
+        end
+      end
+    end
+  end
 
   describe '#create' do
     describe 'with valid data' do

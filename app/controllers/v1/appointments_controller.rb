@@ -1,6 +1,12 @@
 module V1
   class AppointmentsController < BaseController
+    before_action :doorkeeper_authorize!, except: %i(create confirm show)
     before_action :set_appointment, only: %i(show)
+
+    def index
+      @appointments = get_index(Appointment).joins(:offer_time)
+      render json: @appointments, each_serializer: AppointmentSerializer
+    end
 
     def create
       @appointment = Appointment.create!(appointment_params)

@@ -24,6 +24,12 @@ class Appointment < ActiveRecord::Base
     where.not(confirmed_at: nil).where(canceled_at: nil)
   end
 
+  # Ransack
+  #
+  def self.ransackable_scopes(auth_object = nil)
+    %i(valid today)
+  end
+
   # Methods
   def cancel!(token)
     token_exception unless token == cancelation_token
