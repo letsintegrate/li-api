@@ -177,9 +177,11 @@ RSpec.describe V1::LocationsController, type: :controller do
       end
 
       it 'updates the location' do
-        expect {
-          patch :update, id: location.to_param, data: data
-        }.to change { location.reload.description }.to 'hello'
+        I18n.with_locale(:en) do
+          expect {
+            patch :update, id: location.to_param, data: data
+          }.to change { location.reload.description }.to 'hello'
+        end
       end
     end
 
