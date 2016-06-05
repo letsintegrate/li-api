@@ -1,7 +1,7 @@
 module V1
   class OfferItemsController < BaseController
     def index
-      @offer_items = get_index(OfferItem)
+      @offer_items = get_index(OfferItem, destinct: false)
       render json: @offer_items,
              each_serializer: OfferItemSerializer,
              include: '*'
