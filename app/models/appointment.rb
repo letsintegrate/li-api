@@ -15,13 +15,13 @@ class Appointment < ActiveRecord::Base
   after_validation :execute_geocoding
 
   # Scopes
+  #
+  scope :upcoming, -> { joins(:offer_time).where('offer_times.time >= now()') }
+  scope :valid, -> { where.not(confirmed_at: nil).where(canceled_at: nil) }
+
   def self.today
     time = Time.now.beginning_of_day..Time.now.end_of_day
     joins(:offer_time).where(offer_times: { time: time })
-  end
-
-  def self.valid
-    where.not(confirmed_at: nil).where(canceled_at: nil)
   end
 
   def self.search(value)
@@ -37,7 +37,7 @@ class Appointment < ActiveRecord::Base
   # Ransack
   #
   def self.ransackable_scopes(auth_object = nil)
-    %i(valid today search)
+    %i(upcoming valid today search)
   end
 
   # Methods
