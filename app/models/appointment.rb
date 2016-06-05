@@ -24,10 +24,20 @@ class Appointment < ActiveRecord::Base
     where.not(confirmed_at: nil).where(canceled_at: nil)
   end
 
+  def self.search(value)
+    if /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i =~ value
+      where(id: value)
+    else
+      s = "%#{value}%"
+      joins(:offer)
+      .where('appointments.email ILIKE ? OR offers.email ILIKE ?', s, s)
+    end
+  end
+
   # Ransack
   #
   def self.ransackable_scopes(auth_object = nil)
-    %i(valid today)
+    %i(valid today search)
   end
 
   # Methods
