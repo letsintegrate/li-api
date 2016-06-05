@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class AppointmentMailer < ApplicationMailer
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -16,9 +18,11 @@ class AppointmentMailer < ApplicationMailer
     @appointment = appointment
     @locale   = locale.present? ? locale : 'en'
     @location = appointment.location
-    filename = Rails.root.join('public', 'locations', "#{@location.slug}.jpg")
-    if File.exists?(filename)
-      attachments.inline['photo.jpg'] = File.read(filename)
+    @descriptions = {}
+    I18n.available_locales.each do |locale|
+      I18n.with_locale(locale) do
+        @descriptions[locale] = embed_images(appointment.location.description)
+      end
     end
 
     mail  from: "Let's integrate!<appointments+#{appointment.id}@letsintegrate.de>",
@@ -46,5 +50,19 @@ class AppointmentMailer < ApplicationMailer
 
       mail to: appointment.email
     end
+  end
+
+  private
+
+  def embed_images(html)
+    doc = Nokogiri::HTML::DocumentFragment.parse(html)
+    doc.css('img[src]').each do |img|
+      name = File.basename(img['src'])
+      attachments.inline[name] = open(img['src']).read
+      img['src'] = attachments[name].url
+    end
+    doc.to_html
+  rescue
+    html
   end
 end
