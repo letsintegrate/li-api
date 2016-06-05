@@ -58,8 +58,10 @@ class AppointmentMailer < ApplicationMailer
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
     doc.css('img[src]').each do |img|
       name = File.basename(img['src'])
-      attachments.inline[name] = open(img['src']).read
-      img['src'] = attachments[name].url
+      if attachments[name].nil?
+        attachments.inline[name] = open(img['src']).read
+        img['src'] = attachments[name].url
+      end
     end
     doc.to_html
   rescue
