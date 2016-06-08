@@ -33,7 +33,7 @@ module V1
     def offer_params
       whitelist = %i(offer_times_attributes location_ids)
       parameters = deserialized_params(embedded: [:offer_times])
-      parameters.permit(:email).tap do |whitelisted|
+      parameters.permit(:email, :phone).tap do |whitelisted|
         whitelist.each do |key|
           data = parameters[key]
           whitelisted[key] = data if data.present?

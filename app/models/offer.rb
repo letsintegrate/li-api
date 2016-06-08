@@ -12,6 +12,11 @@ class Offer < ActiveRecord::Base
   validates :email, presence: true, email: true, email_blacklist: true
   validates :locations, presence: true
   validates :offer_times, presence: true
+  validates :phone, phone: {
+    possible: false,
+    allow_blank: true,
+    types: :mobile
+  }, presence: { if: :phone_required? }
 
   # Nested attributes
   accepts_nested_attributes_for :offer_times
@@ -40,7 +45,14 @@ class Offer < ActiveRecord::Base
       'offer_times.time >= (now() + interval ?)', '6 hours')
   end
 
+  # Attribute enhancements
+  #
+  def phone=(value)
+    super GlobalPhone.normalize(value, :de)
+  end
+
   # Methods
+  #
   def confirm!(token, options = {})
     token_exception unless token == confirmation_token
     data = { confirmed_at: Time.zone.now }
@@ -65,6 +77,10 @@ class Offer < ActiveRecord::Base
     appointments.where(canceled_at: nil).where('
       created_at > (now() - interval ?) OR confirmed_at IS NOT NULL
     ', '2 hours').exists?
+  end
+
+  def phone_required?
+    locations.any? { |location| location.phone_required }
   end
 
   private

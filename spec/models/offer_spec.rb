@@ -22,6 +22,9 @@ RSpec.describe Offer, type: :model do
   it { should have_db_column(:city).of_type :string }
   it { should have_db_column(:lat).of_type :float }
   it { should have_db_column(:lng).of_type :float }
+  it { should have_db_column(:phone).of_type :string }
+
+  it { should respond_to(:phone_required?) }
 
   # Validations
   it { should validate_presence_of :email }
@@ -31,6 +34,37 @@ RSpec.describe Offer, type: :model do
   it { should_not allow_value([]).for(:locations) }
   it { should allow_value([offer_time]).for(:offer_times) }
   it { should_not allow_value([]).for(:offer_times) }
+
+  it 'is valid without a phone number' do
+    subject.phone = nil
+    expect(subject).to be_valid
+  end
+
+  context 'with phone required' do
+    subject { FactoryGirl.build :offer, :confirmed, :phone_required }
+
+    it { should allow_value('+4917712345678').for(:phone) }
+    it { should_not allow_value('+493012345678').for(:phone) }
+
+    it 'is invalid without a phone number' do
+      subject.phone = nil
+      expect(subject).to_not be_valid
+    end
+  end
+
+  # Methods
+
+  describe '#phone_required?' do
+    it 'is true if one location requires phone verification' do
+      offer = FactoryGirl.build :offer, :confirmed, :phone_required
+      expect(offer.phone_required?).to be true
+    end
+
+    it 'is false if no location requires phone verification' do
+      offer = FactoryGirl.build :offer, :confirmed
+      expect(offer.phone_required?).to be false
+    end
+  end
 
   # Scopes
   describe '#confirmed' do

@@ -7,6 +7,10 @@ FactoryGirl.define do
       'http://lorempixel.com/800/600/city/3/'
     ]
     sequence(:slug) { |n| 'location-%02d'%[n] }
+
+    trait :phone_required do
+      phone_required true
+    end
   end
 
 end

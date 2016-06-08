@@ -14,6 +14,7 @@ RSpec.describe Location, type: :model do
   it { should have_db_column(:images).of_type :string }
   it { should have_db_column(:slug).of_type :string }
   it { should have_db_column(:special).of_type :boolean }
+  it { should have_db_column(:phone_required).of_type :boolean }
 
   # Translated attributes
   #

@@ -19,6 +19,11 @@ FactoryGirl.define do
     trait :expired do
       offer_times { [FactoryGirl.build(:offer_time, :expired)] }
     end
+
+    trait :phone_required do
+      locations { [FactoryGirl.build(:location, :phone_required)] }
+      phone '+491771234567'
+    end
   end
 
 end

@@ -70,7 +70,12 @@ docker-compose run web guard -p
 6. Push the changes to GitHub: `git push -u origin feature/my-awesome-feature`
 7. Create a Pull request
 
+### Updating global_phone database
 
+```
+gem install global_phone_dbgen
+/bundle/bin/global_phone_dbgen 'https://raw.githubusercontent.com/googlei18n/libphonenumber/master/resources/PhoneNumberMetadata.xml' > db/global_phone.json
+```
 
 ## License
 

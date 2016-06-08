@@ -44,6 +44,8 @@ gem 'active_model_serializers-jsonapi_embedded_records_deserializer', '0.1.1'
 
 # Validations
 gem 'email_validator',                  '~> 1.6'
+gem 'phonelib',                         '~> 0.6.1'
+gem 'global_phone',                     github: 'sstephenson/global_phone'
 
 # Automation
 gem 'sidekiq',                          '~> 4.1', '>= 4.1.2'
