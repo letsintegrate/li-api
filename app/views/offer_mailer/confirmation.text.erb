@@ -2,9 +2,17 @@ Thank you for your offer! Please confirm your email address by opening the link
 
 http://letsintegrate.de/<%= @locale %>/offers/<%= @offer.id %>/confirm?token=<%= @offer.confirmation_token %>
 
+<%- if @offer.phone_required? %>
+and enter the two parts of the confirmation code in the two text fields n the page.
+The part one of the code has been sent by SMS to <%= @offer.phone %>, the part
+two is
+
+    <%= @offer.part_two_confirmation_code %>
+<%- else %>
 and enter the confirmation code
 
     <%= @offer.confirmation_token %>
+<%- end %>
 
 Kind regards,
 Let's integrate

@@ -121,6 +121,38 @@ RSpec.describe V1::OffersController, type: :controller do
         offer = assigns(:offer)
         expect(offer.locale).to eql('ar')
       end
+
+      describe 'with phone required location' do
+        let(:location) { FactoryGirl.create :location, :phone_required }
+        let(:data) do
+          {
+            type: 'articles',
+            attributes: {
+              email: FFaker::Internet.email,
+              phone: '01771234567'
+            },
+            relationships: {
+              locations: {
+                data: [{
+                  type: 'locations',
+                  id: location.id
+                }]
+              },
+              'offer_times': {
+                data: [{
+                  type: 'offer-times',
+                  attributes: FactoryGirl.attributes_for(:offer_time)
+                }]
+              }
+            }
+          }
+        end
+
+        it 'sends an SMS if the location requires a phone number' do
+          expect(SmsService).to receive(:send_sms)
+          post :create, data: data
+        end
+      end
     end
 
     describe 'with invalid data' do

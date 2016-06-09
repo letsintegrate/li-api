@@ -62,6 +62,9 @@ gem 'geocoder',                         '~> 1.3'
 gem 'carrierwave',                      github: 'carrierwaveuploader/carrierwave'
 gem 'rmagick',                          '~> 2.15', '>= 2.15.4'
 
+# SMS
+gem 'nexmo',                            '~> 4.1'
+
 ###############################################
 # Development dependencies
 ###############################################

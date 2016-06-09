@@ -150,7 +150,6 @@ RSpec.describe Offer, type: :model do
     end
   end
 
-  # Methods
   it { should respond_to(:confirm!).with(1).argument }
 
   describe '#confirm!' do
@@ -218,6 +217,25 @@ RSpec.describe Offer, type: :model do
 
     it 'returns false if the record is not canceled' do
       expect(subject.canceled?).to be false
+    end
+  end
+
+  it { should respond_to :part_one_confirmation_code }
+  it { should respond_to :part_two_confirmation_code }
+
+  describe '#part_one_confirmation_code' do
+    it 'returns the first half of the code' do
+      subject.save!
+      expected = subject.confirmation_token[0..2]
+      expect(subject.part_one_confirmation_code).to eql expected
+    end
+  end
+
+  describe '#part_two_confirmation_code' do
+    it 'returns the second half of the code' do
+      subject.save!
+      expected = subject.confirmation_token[3..5]
+      expect(subject.part_two_confirmation_code).to eql expected
     end
   end
 

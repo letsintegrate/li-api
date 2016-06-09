@@ -10,6 +10,7 @@ module V1
     def create
       @offer = Offer.create!(offer_params)
       OfferMailer.confirmation(@offer, locale).deliver_now
+      ::SmsService.send_sms(@offer) if @offer.phone_required?
       render json: @offer, serializer: OfferSerializer
     end
 

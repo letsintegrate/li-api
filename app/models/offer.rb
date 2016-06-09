@@ -83,6 +83,14 @@ class Offer < ActiveRecord::Base
     locations.any? { |location| location.phone_required }
   end
 
+  def part_one_confirmation_code
+    confirmation_token[0..2]
+  end
+
+  def part_two_confirmation_code
+    confirmation_token[3..5]
+  end
+
   private
 
   def token_exception
