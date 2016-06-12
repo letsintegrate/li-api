@@ -65,6 +65,9 @@ gem 'rmagick',                          '~> 2.15', '>= 2.15.4'
 # SMS
 gem 'nexmo',                            '~> 4.1'
 
+# Exception tracking
+gem 'sentry-raven'
+
 ###############################################
 # Development dependencies
 ###############################################
