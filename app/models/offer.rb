@@ -42,7 +42,7 @@ class Offer < ActiveRecord::Base
 
   def self.upcoming
     joins(:offer_times).where(
-      'offer_times.time >= (now() + interval ?)', '6 hours')
+      'offer_times.time >= (now() + interval ?)', '1 hours')
   end
 
   # Attribute enhancements

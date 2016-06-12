@@ -16,7 +16,7 @@ FactoryGirl.define do
     end
 
     trait :expired do
-      sequence(:time) { |n| 4.hours.from_now }
+      sequence(:time) { |n| 30.minutes.from_now }
     end
   end
 
