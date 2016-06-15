@@ -1998,8 +1998,7 @@ fick
 fuck
 hitler
 nigger
-perfume.201
-perfume201
+perfume
 rape
 roxo61623
 terror
