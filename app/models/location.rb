@@ -21,11 +21,12 @@ class Location < ActiveRecord::Base
   #
   scope :active, -> { where(active: true) }
   scope :regular, -> { where(special: false) }
+  scope :sp, -> { where(special: true) }
 
   # Ransack
   #
   def self.ransackable_scopes(auth_object = nil)
-    %i(regular)
+    %i(regular sp)
   end
 
   # Image upload
