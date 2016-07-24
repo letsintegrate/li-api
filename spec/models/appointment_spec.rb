@@ -62,6 +62,22 @@ RSpec.describe Appointment, type: :model do
       appointment = FactoryGirl.build(:appointment, offer: subject.offer)
       expect(appointment).to be_valid
     end
+
+    it 'fails with same email address within a week' do
+      subject     = FactoryGirl.create(:appointment, created_at: 1.hour.from_now)
+      Timecop.freeze(5.days.from_now) do
+        appointment = FactoryGirl.build(:appointment, email: subject.email)
+        expect(appointment).to_not be_valid
+      end
+    end
+
+    it 'succeeds with same email address but more than a week later' do
+      subject     = FactoryGirl.create(:appointment, created_at: 1.hour.from_now)
+      Timecop.freeze(8.days.from_now) do
+        appointment = FactoryGirl.build(:appointment, email: subject.email)
+        expect(appointment).to be_valid
+      end
+    end
   end
 
   # Methods

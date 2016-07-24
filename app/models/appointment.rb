@@ -8,7 +8,12 @@ class Appointment < ActiveRecord::Base
   belongs_to :offer, required: true
 
   # Validations
-  validates :email, presence: true, email: true, email_blacklist: true
+  validates :email, presence: true,
+                    email: true,
+                    email_blacklist: true,
+                    uniqueness: {
+                      conditions: -> { uniqueness_time_frame }
+                    }
   validate  :offer_available, on: :create
 
   # Geocoding
@@ -18,6 +23,10 @@ class Appointment < ActiveRecord::Base
   #
   scope :upcoming, -> { joins(:offer_time).where('offer_times.time >= now()') }
   scope :valid, -> { where.not(confirmed_at: nil).where(canceled_at: nil) }
+
+  def self.uniqueness_time_frame
+    where('appointments.created_at >= ?', 1.week.ago)
+  end
 
   def self.today
     time = Time.now.beginning_of_day..Time.now.end_of_day
