@@ -6,6 +6,8 @@ redis:
 
 web:
   build: ./../
+  volumes:
+    - ./../:/usr/src/app
   links:
     - db
     - redis
