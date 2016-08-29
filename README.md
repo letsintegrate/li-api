@@ -2,8 +2,6 @@
 
 <img src="logo.png" align="right" alt="Let's integrate!" />
 
-(Image: http://www.dreamstime.com)
-
 This is the API of the Let's integrate! project. To know what it's about, please
 visit our website at https://letsintegrate.de/.
 
@@ -53,7 +51,7 @@ docker-compose run web rspec
 Guard:
 
 ```
-docker-compose run web guard -p
+docker-compose run web guard
 ```
 
 ### Contribute
