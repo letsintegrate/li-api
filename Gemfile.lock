@@ -9,15 +9,6 @@ GIT
       mime-types (>= 1.16)
 
 GIT
-  remote: git://github.com/spieker/rspec-apib.git
-  revision: be90b7487cd99f92823e1c785540c001f4967b54
-  ref: be90b74
-  specs:
-    rspec-apib (0.1.4)
-      rails (>= 4.2)
-      rspec-rails (~> 3.4)
-
-GIT
   remote: git://github.com/sstephenson/global_phone.git
   revision: dd0894061f58479884e6cfa2d00382542dc77d5a
   ref: dd089406
@@ -245,6 +236,9 @@ GEM
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
+    rspec-apib (0.1.0)
+      rails (>= 4.2)
+      rspec-rails (~> 3.4)
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -347,7 +341,7 @@ DEPENDENCIES
   recaptcha (~> 1.3)
   redis-namespace (~> 1.5, >= 1.5.2)
   rmagick (~> 2.15, >= 2.15.4)
-  rspec-apib!
+  rspec-apib (~> 0.1.0)
   rspec-rails (~> 3.4.0)
   sentry-raven
   shoulda-matchers (~> 3.0.1)
