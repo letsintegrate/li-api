@@ -5,6 +5,15 @@
 This is the API of the Let's integrate! project. To know what it's about, please
 visit our website at https://letsintegrate.de/.
 
+## Using the API
+
+There is currently no detailed documentation on how to use the API but we use
+the [rspec-apib](https://github.com/spieker/rspec-apib) gem to generate an
+[API Blueprint](https://apiblueprint.org/) documentation and then upload it
+to [Apiary](https://apiary.io/). The generated documentation can be found here:
+
+http://docs.letsintegrateapi.apiary.io/
+
 ## Development
 
 The Let's integrate! API is based on [Ruby on Rails 4](http://rubyonrails.org/).
