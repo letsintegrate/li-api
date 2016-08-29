@@ -2,7 +2,7 @@ class ReminderWorker
   include Sidekiq::Worker
 
   def perform
-    reminder_records.each do |appointments|
+    reminder_records.each do |appointment|
       send_reminder(appointment)
     end
   end
