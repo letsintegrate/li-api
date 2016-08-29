@@ -9,7 +9,8 @@ docker-compose run web rake db:create
 docker-compose run web rake db:migrate
 
 # Run tests
-docker-compose run web rspec --format documentation --color .
+docker-compose run -e CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN \
+                   web rspec --format documentation --color .
 
 # Clean up
 docker-compose stop

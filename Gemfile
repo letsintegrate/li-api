@@ -113,4 +113,7 @@ group :test do
 
   # JSON testing
   gem 'json_spec',                      '~> 1.1.4'
+
+  # Coverage
+  gem 'codeclimate-test-reporter',      '~> 0.6.0'
 end
