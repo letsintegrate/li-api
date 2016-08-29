@@ -14,9 +14,9 @@ class AppointmentMailer < ApplicationMailer
     mail to: appointment.email
   end
 
-  def match(appointment, locale = 'en')
+  def match(appointment, user_locale = 'en')
     @appointment = appointment
-    @locale   = locale.present? ? locale : 'en'
+    @locale   = user_locale.present? ? user_locale : 'en'
     @location = appointment.location
     @descriptions = {}
     I18n.available_locales.each do |locale|

@@ -25,7 +25,7 @@ class Location < ActiveRecord::Base
 
   # Ransack
   #
-  def self.ransackable_scopes(auth_object = nil)
+  def self.ransackable_scopes(_auth_object = nil)
     %i(regular sp)
   end
 

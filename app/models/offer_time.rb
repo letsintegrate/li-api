@@ -31,13 +31,11 @@ class OfferTime < ActiveRecord::Base
     where('offer_times.time >= (now() + interval ?)', '24 hours')
   end
 
-  private
-
   # `ransackable_scopes` by default returns an empty array
   # i.e. no class methods/scopes are authorized.
   # For overriding with a whitelist array of *symbols*.
   #
-  def self.ransackable_scopes(auth_object = nil)
+  def self.ransackable_scopes(_auth_object = nil)
     %i(location)
   end
 end
