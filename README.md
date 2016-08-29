@@ -2,6 +2,8 @@
 
 <img src="logo.png" align="right" alt="Let's integrate!" />
 
+[![Code Climate](https://codeclimate.com/github/letsintegrate/li-api/badges/gpa.svg)](https://codeclimate.com/github/letsintegrate/li-api)
+
 This is the API of the Let's integrate! project. To know what it's about, please
 visit our website at https://letsintegrate.de/.
 
