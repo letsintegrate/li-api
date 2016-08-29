@@ -32,20 +32,21 @@ gem 'globalize',                        '~> 5.0.0'
 gem 'bcrypt',                           '~> 3.1', '>= 3.1.11'
 gem 'pundit',                           '~> 1.0.1'
 gem 'pundit_namespaces',                '~> 0.1.1'
-gem 'doorkeeper',                       '~> 4.0.0.rc4'
+gem 'doorkeeper',                       '~> 4.2.0'
 gem 'strong_password',                  '~> 0.0.5'
 
 # Order number generation
 gem 'ar-tokens',                        '~> 0.0.6'
 
 # Serialization
-gem 'active_model_serializers',         github: 'rails-api/active_model_serializers'
+gem 'active_model_serializers',         '~> 0.10.2'
 gem 'active_model_serializers-jsonapi_embedded_records_deserializer', '0.1.1'
 
 # Validations
 gem 'email_validator',                  '~> 1.6'
 gem 'phonelib',                         '~> 0.6.1'
-gem 'global_phone',                     github: 'sstephenson/global_phone'
+gem 'global_phone',                     github: 'sstephenson/global_phone',
+                                        ref:    'dd089406'
 
 # Automation
 gem 'sidekiq',                          '~> 4.1', '>= 4.1.2'
@@ -59,7 +60,8 @@ gem 'recaptcha',                        '~> 1.3'
 gem 'geocoder',                         '~> 1.3'
 
 # Attachments
-gem 'carrierwave',                      github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave',                      github: 'carrierwaveuploader/carrierwave',
+                                        ref:    '8ceadb7f'
 gem 'rmagick',                          '~> 2.15', '>= 2.15.4'
 
 # SMS
@@ -84,7 +86,8 @@ group :development, :test do
 
   # RSpec testing instead of Test::Unit
   gem 'rspec-rails',                    '~> 3.4.0'
-  gem 'rspec-apib',                     github: 'spieker/rspec-apib'
+  gem 'rspec-apib',                     github: 'spieker/rspec-apib',
+                                        ref:    'be90b74'
 
   # Test factories and dummy data
   gem 'factory_girl_rails',             '~> 4.5.0'
