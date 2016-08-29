@@ -1,4 +1,7 @@
 class Offer < ActiveRecord::Base
+  include Concerns::Confirmable
+  include Concerns::Geocoded
+
   tokenize :confirmation_token, characters: (0..9).to_a, length: 5
   tokenize :cancelation_token, length: 16
 
@@ -20,9 +23,6 @@ class Offer < ActiveRecord::Base
 
   # Nested attributes
   accepts_nested_attributes_for :offer_times
-
-  # Geocoding
-  after_validation :execute_geocoding
 
   # Scopes
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -53,26 +53,6 @@ class Offer < ActiveRecord::Base
 
   # Methods
   #
-  def confirm!(token, options = {})
-    token_exception unless token == confirmation_token
-    data = { confirmed_at: Time.zone.now }
-    data[:confirmation_ip_address] = options[:ip] if options[:ip]
-    update!(data)
-  end
-
-  def confirmed?
-    confirmed_at.present?
-  end
-
-  def cancel!(token)
-    token_exception unless token == cancelation_token
-    update!(canceled_at: Time.zone.now)
-  end
-
-  def canceled?
-    canceled_at.present?
-  end
-
   def taken?
     appointments.where(canceled_at: nil).where('
       created_at > (now() - interval ?) OR confirmed_at IS NOT NULL
@@ -89,24 +69,5 @@ class Offer < ActiveRecord::Base
 
   def part_two_confirmation_code
     confirmation_token[3..5]
-  end
-
-  private
-
-  def token_exception
-    errors.add(:confirmation_token, :invalid)
-    raise TokenMissmatch.new(self)
-  end
-
-  def execute_geocoding
-    return if confirmation_ip_address.blank?
-    result = Geocoder.search(confirmation_ip_address.to_s).first
-    return unless result
-    self.lng = result.longitude
-    self.lat = result.latitude
-    self.country = result.country
-    self.city = result.city
-  rescue
-    nil
   end
 end
