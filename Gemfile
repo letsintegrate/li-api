@@ -70,6 +70,9 @@ gem 'nexmo',                            '~> 4.1'
 # Exception tracking
 gem 'sentry-raven'
 
+# UUID
+gem 'uuid'
+
 ###############################################
 # Development dependencies
 ###############################################

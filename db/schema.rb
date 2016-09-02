@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608180759) do
+ActiveRecord::Schema.define(version: 20160901120504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,9 +62,11 @@ ActiveRecord::Schema.define(version: 20160608180759) do
     t.boolean  "active",         default: true
     t.boolean  "special",        default: false
     t.boolean  "phone_required"
+    t.uuid     "region_id",                      null: false
   end
 
   add_index "locations", ["active"], name: "index_locations_on_active", using: :btree
+  add_index "locations", ["region_id"], name: "index_locations_on_region_id", using: :btree
   add_index "locations", ["special"], name: "index_locations_on_special", using: :btree
 
   create_table "oauth_access_grants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -143,6 +145,18 @@ ActiveRecord::Schema.define(version: 20160608180759) do
     t.float    "lat"
     t.string   "phone"
   end
+
+  create_table "regions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.string   "country"
+    t.string   "sender_email"
+    t.boolean  "active",       default: true
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "email"
