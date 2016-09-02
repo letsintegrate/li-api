@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :location do
+    region
     sequence(:name) { |n| 'Location %02d'%[n] }
     description { FFaker::Lorem.paragraph }
     images [

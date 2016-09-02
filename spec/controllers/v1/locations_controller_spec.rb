@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe V1::LocationsController, type: :controller do
   let(:user) { FactoryGirl.create :user }
   let(:location) { FactoryGirl.create :location }
+  let(:region) { location.region }
 
   before(:each) { location }
 
@@ -85,7 +86,15 @@ RSpec.describe V1::LocationsController, type: :controller do
       let(:data) do
         {
           type: 'locations',
-          attributes: FactoryGirl.attributes_for(:location)
+          attributes: FactoryGirl.attributes_for(:location),
+          relationships: {
+            region: {
+              data: {
+                type: 'region',
+                id: region.id
+              }
+            }
+          }
         }
       end
 

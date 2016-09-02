@@ -5,6 +5,7 @@ class Location < ActiveRecord::Base
 
   # Relationships
   #
+  belongs_to :region, required: true
   has_many :offer_locations
   has_many :offers, through: :offer_locations
 
@@ -23,10 +24,18 @@ class Location < ActiveRecord::Base
   scope :regular, -> { where(special: false) }
   scope :sp, -> { where(special: true) }
 
+  def self.r(region)
+    if UUID.validate(region)
+      where(region_id: region)
+    else
+      joins(:region).where(regions: { slug: region })
+    end
+  end
+
   # Ransack
   #
   def self.ransackable_scopes(_auth_object = nil)
-    %i(regular sp)
+    %i(r regular sp)
   end
 
   # Image upload

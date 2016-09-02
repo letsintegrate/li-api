@@ -36,7 +36,7 @@ module V1
 
     def location_params
       whitelist = %i(description_translations new_images)
-      permitted = %i(name slug active special phone_required)
+      permitted = %i(name slug active special phone_required region_id)
       parameters = deserialized_params
       parameters.permit(permitted).tap do |whitelisted|
         whitelist.each do |key|
