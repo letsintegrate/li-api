@@ -6,8 +6,9 @@ class AttachLocationsToRegions < ActiveRecord::Migration
       region.sender_email = 'appointments@letsintegrate.de'
     end
 
-    add_column :locations, :region_id, :uuid, null: false
+    add_column :locations, :region_id, :uuid
     Location.update_all region_id: region.id
+    change_column :locations, :region_id, :uuid, null: false
     add_index :locations, :region_id
   end
 end
