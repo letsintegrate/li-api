@@ -64,6 +64,36 @@ RSpec.describe V1::LocationsController, type: :controller do
           expect(locations).to_not include location
         end
       end
+
+      describe '#r' do
+        it 'includes regions locations by slug' do
+          location = FactoryGirl.create :location
+          get :index, filter: { r: location.region.slug }
+          locations = assigns(:locations)
+          expect(locations).to include location
+        end
+
+        it 'includes regions locations by id' do
+          location = FactoryGirl.create :location
+          get :index, filter: { r: location.region.id }
+          locations = assigns(:locations)
+          expect(locations).to include location
+        end
+
+        it 'excludes other regions locations by slug' do
+          location = FactoryGirl.create :location
+          get :index, filter: { r: region.slug }
+          locations = assigns(:locations)
+          expect(locations).to_not include location
+        end
+
+        it 'excludes other regions locations by id' do
+          location = FactoryGirl.create :location
+          get :index, filter: { r: region.id }
+          locations = assigns(:locations)
+          expect(locations).to_not include location
+        end
+      end
     end
   end
 
