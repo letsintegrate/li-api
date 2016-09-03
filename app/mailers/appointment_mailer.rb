@@ -25,7 +25,8 @@ class AppointmentMailer < ApplicationMailer
       end
     end
 
-    mail  from: "Let's integrate!<appointments+#{appointment.id}@letsintegrate.de>",
+    address = @location.region.sender_email%{appointment_id: appointment.id}
+    mail  from: "Let's integrate!<#{address}>",
           to: [appointment.offer.email, appointment.email]
   end
 
@@ -33,7 +34,8 @@ class AppointmentMailer < ApplicationMailer
     @appointment = appointment
     @locale = locale.present? ? locale : 'en'
 
-    mail to: 'appointments@letsintegrate.de'
+    address = appointment.location.region.sender_email%{appointment_id: 'null'}
+    mail to: address
   end
 
   def remind_local(appointment)

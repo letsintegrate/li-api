@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe AppointmentMailer, type: :mailer do
   let(:location)    { FactoryGirl.create :location, slug: 'alexanderplatz' }
   let(:appointment) { FactoryGirl.create :appointment, location: location }
+  let(:region)      { location.region }
 
   describe "confirmation" do
     let(:mail) { AppointmentMailer.confirmation(appointment) }
@@ -48,8 +49,14 @@ RSpec.describe AppointmentMailer, type: :mailer do
     end
 
     it 'is sent from appointments+[appointment-id]@letsintegrate.de' do
+      region.sender_email = 'appointments+%{appointment_id}@letsintegrate.de'
+      region.save!
       expected = "appointments+#{appointment.id}@letsintegrate.de"
       expect(mail.from).to include(expected)
+    end
+
+    it 'is sent from the regions email address' do
+      expect(mail.from).to include(region.sender_email)
     end
 
     context 'body' do
