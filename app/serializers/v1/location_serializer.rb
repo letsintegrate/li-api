@@ -4,7 +4,7 @@ module V1
       :description_translations, :new_images, :images, :phone_required
 
     # Relationships
-    belongs_to :region
+    belongs_to_link :region
     has_many_link :offers, filter: :offer_locations_location_id_eq
   end
 end
