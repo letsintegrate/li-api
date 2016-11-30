@@ -27,6 +27,15 @@ module Concerns::ExceptionHandling
              },
              status: :bad_request
     end
+
+    # Custom handler for unauthorized access
+    def unauthorized_request
+      render json: {
+                 status: 401,
+                 message: 'Unauthorized access'
+               },
+               status: 401
+    end
   end
 
   def self.included(rec)
@@ -37,6 +46,7 @@ module Concerns::ExceptionHandling
     rec.rescue_from ActiveRecord::RecordInvalid,  with: :record_invalid
     rec.rescue_from ActiveRecord::RecordNotSaved, with: :record_invalid
     rec.rescue_from ActiveRecord::RecordNotDestroyed, with: :record_invalid
+    rec.rescue_from Pundit::NotAuthorizedError,   with: :unauthorized_request
   end
 
 end

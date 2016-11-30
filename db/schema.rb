@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901120504) do
+ActiveRecord::Schema.define(version: 20161130201315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,26 @@ ActiveRecord::Schema.define(version: 20160901120504) do
     t.float    "lat"
     t.string   "phone"
   end
+
+  create_table "page_translations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "page_id",    null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "title"
+    t.text     "content"
+  end
+
+  add_index "page_translations", ["locale"], name: "index_page_translations_on_locale", using: :btree
+  add_index "page_translations", ["page_id"], name: "index_page_translations_on_page_id", using: :btree
+
+  create_table "pages", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "regions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
