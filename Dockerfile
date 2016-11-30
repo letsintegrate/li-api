@@ -10,18 +10,15 @@ ENV APP_HOME /usr/src/app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-# Copy Gemfile
-ADD Gemfile* $APP_HOME/
-
 # Set Bundler cache directory outside of app scope
 ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
-    BUNDLE_JOBS=2 \
-    BUNDLE_PATH=/bundle
-ENV GEM_HOME=$BUNDLE_PATH \
-    GEM_PATH=$BUNDLE_PATH
+    BUNDLE_JOBS=2
 
 # Fixing guard issues
 RUN gem install bundler
+
+# Copy Gemfile
+ADD Gemfile* $APP_HOME/
 
 # Install gems
 RUN bundle install
