@@ -68,4 +68,28 @@ RSpec.describe AppointmentMailer, type: :mailer do
     end
   end
 
+  describe 'cancelation_local' do
+    let(:mail) { AppointmentMailer.cancelation_local(appointment) }
+
+    it 'has a meaningful subject' do
+      expect(mail.subject).to eq('Your appointment was canceled')
+    end
+
+    it 'will be send to the offers email address' do
+      expect(mail.to).to eq([appointment.offer.email])
+    end
+  end
+
+  describe 'cancelation_refugee' do
+    let(:mail) { AppointmentMailer.cancelation_refugee(appointment) }
+
+    it 'has a meaningful subject' do
+      expect(mail.subject).to eq('Your appointment is canceled')
+    end
+
+    it 'will be send to the appointments email address' do
+      expect(mail.to).to eq([appointment.email])
+    end
+  end
+
 end

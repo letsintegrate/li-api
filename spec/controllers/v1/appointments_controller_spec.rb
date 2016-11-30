@@ -177,4 +177,48 @@ RSpec.describe V1::AppointmentsController, type: :controller do
       expect(response).to be_unprocessable
     end
   end
+
+  describe '#destroy' do
+    describe 'without authentication' do
+      it 'fails' do
+        delete :destroy, id: appointment.to_param
+        expect(response).to be_unauthorized
+      end
+    end
+
+    describe 'with authentication' do
+      before(:each) { authenticate(user) }
+
+      it 'is successful' do
+        delete :destroy, id: appointment.to_param
+        expect(response).to be_successful
+      end
+
+      it 'changes the appointment to be canceled' do
+        expect {
+          delete :destroy, id: appointment.to_param
+        }.to change { appointment.reload.canceled? }.from(false).to true
+      end
+
+      it 'sends a cancelation mail to the local' do
+        expect(AppointmentMailer).to receive(:cancelation_local)
+                                     .with(appointment)
+                                     .and_return(AppointmentMailer.cancelation_local(appointment))
+        delete :destroy, id: appointment.to_param
+      end
+
+      it 'sends a cancelation mail to the refugee' do
+        expect(AppointmentMailer).to receive(:cancelation_refugee)
+                                     .with(appointment)
+                                     .and_return(AppointmentMailer.cancelation_refugee(appointment))
+        delete :destroy, id: appointment.to_param
+      end
+
+      it 'sends two e-Mails' do
+        expect {
+          delete :destroy, id: appointment.to_param
+        }.to change { AppointmentMailer.deliveries.count }.by(2)
+      end
+    end
+  end
 end

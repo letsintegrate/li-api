@@ -54,6 +54,22 @@ class AppointmentMailer < ApplicationMailer
     end
   end
 
+  def cancelation_local(appointment)
+    I18n.with_locale(appointment.offer.locale) do
+      @appointment = appointment
+
+      mail to: appointment.offer.email
+    end
+  end
+
+  def cancelation_refugee(appointment)
+    I18n.with_locale(appointment.locale) do
+      @appointment = appointment
+
+      mail to: appointment.email
+    end
+  end
+
   private
 
   def embed_images(html)

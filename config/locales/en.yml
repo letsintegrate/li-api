@@ -10,6 +10,10 @@ en:
       subject: 'Confirm the e-mail address'
     match:
       subject: "It's a match!"
+    cancelation_local:
+      subject: 'Your appointment was canceled'
+    cancelation_refugee:
+      subject: 'Your appointment is canceled'
 
   reports_mailer:
     email_address_records:

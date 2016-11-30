@@ -1,7 +1,7 @@
 module V1
   class AppointmentsController < BaseController
     before_action :doorkeeper_authorize!, except: %i(create confirm show)
-    before_action :set_appointment, only: %i(show)
+    before_action :set_appointment, only: %i(confirm destroy show)
 
     def index
       @appointments = get_index(Appointment).joins(:offer_time)
@@ -15,8 +15,7 @@ module V1
     end
 
     def confirm
-      @appointment = Appointment.find(params[:id])
-      verify_recaptcha!(@offer)
+      verify_recaptcha!(@appointment)
       @appointment.confirm!(params[:token], ip: request.ip)
       AppointmentMailer.match(@appointment, locale).deliver_now
       AppointmentMailer.match_admin_notification(@appointment, locale).deliver_now
@@ -25,6 +24,13 @@ module V1
 
     def show
       render json: @appointment, serializer: AppointmentSerializer
+    end
+
+    def destroy
+      @appointment.cancel!(@appointment.cancelation_token)
+      AppointmentMailer.cancelation_local(@appointment).deliver_now
+      AppointmentMailer.cancelation_refugee(@appointment).deliver_now
+      head :no_content
     end
 
     private
