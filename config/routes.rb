@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
     resources :email_reports, path: 'email-reports', only: %i(create)
     resources :locations
+    resources :menu_items
     resources :offers do
       patch :confirm, on: :member, as: :confirm
       put   :confirm, on: :member

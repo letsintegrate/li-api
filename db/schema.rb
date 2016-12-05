@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130201315) do
+ActiveRecord::Schema.define(version: 20161205121350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,18 @@ ActiveRecord::Schema.define(version: 20161130201315) do
   add_index "locations", ["active"], name: "index_locations_on_active", using: :btree
   add_index "locations", ["region_id"], name: "index_locations_on_region_id", using: :btree
   add_index "locations", ["special"], name: "index_locations_on_special", using: :btree
+
+  create_table "menu_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name"
+    t.uuid     "page_id"
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "menu_items", ["name"], name: "index_menu_items_on_name", using: :btree
+  add_index "menu_items", ["page_id"], name: "index_menu_items_on_page_id", using: :btree
+  add_index "menu_items", ["position"], name: "index_menu_items_on_position", using: :btree
 
   create_table "oauth_access_grants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "resource_owner_id", null: false
@@ -190,6 +202,7 @@ ActiveRecord::Schema.define(version: 20161130201315) do
   add_foreign_key "appointments", "locations"
   add_foreign_key "appointments", "offer_times"
   add_foreign_key "appointments", "offers"
+  add_foreign_key "menu_items", "pages"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "offer_locations", "locations"
