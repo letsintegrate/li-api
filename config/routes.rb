@@ -15,17 +15,21 @@ Rails.application.routes.draw do
       put   :confirm, on: :member
     end
     resources :email_reports, path: 'email-reports', only: %i(create)
+    resources :images, only: %i(index create show destroy)
     resources :locations
+    resources :menu_items, path: 'menu-items'
     resources :offers do
       patch :confirm, on: :member, as: :confirm
       put   :confirm, on: :member
     end
     resources :offer_items, path: 'offer-items'
     resources :offer_times, path: 'offer-times'
+    resources :pages
     resources :regions
     resources :tempfiles, only: %i(create)
     resources :users do
       get :me, on: :collection, as: :me
     end
+    resources :widgets
   end
 end

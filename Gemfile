@@ -30,7 +30,7 @@ gem 'globalize',                        '~> 5.0.0'
 
 # Authentication / Authorization
 gem 'bcrypt',                           '~> 3.1', '>= 3.1.11'
-gem 'pundit',                           '~> 1.0.1'
+gem 'pundit',                           '~> 1.1.0'
 gem 'pundit_namespaces',                '~> 0.1.1'
 gem 'doorkeeper',                       '~> 4.2.0'
 gem 'strong_password',                  '~> 0.0.5'
