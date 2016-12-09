@@ -46,7 +46,7 @@ RSpec.describe PagePolicy do
       subject { described_class.new(user, page).permitted_attributes }
 
       it { should be_kind_of Array }
-      it { should include :slug }
+      it { should include :id }
     end
 
     context 'as a guest' do

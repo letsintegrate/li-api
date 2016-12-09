@@ -14,25 +14,25 @@ module Concerns
                                                .result(distinct: true)
       @resources = @resources.limit(limit) if limit > 0
 
-      render json: @resources, each_serializer: resource_serializer
+      render json: @resources
     end
 
     def show
-      render json: @resource, serializer: resource_serializer
+      render json: @resource
     end
 
     def create
       @resource = resource_scope.new(resource_params)
       authorize @resource
       @resource.save!
-      render json: @resource, serializer: resource_serializer
+      render json: @resource
     end
 
     def update
       @resource.assign_attributes(resource_params)
       authorize @resource
       @resource.save!
-      render json: @resource, serializer: resource_serializer
+      render json: @resource
     end
 
     def destroy

@@ -69,7 +69,7 @@ RSpec.describe V1::PagesController, type: :controller do
       let(:data) do
         {
           type: 'pages',
-          attributes: FactoryGirl.attributes_for(:page, slug: '')
+          attributes: FactoryGirl.attributes_for(:page, id: '')
         }
       end
 
@@ -151,10 +151,8 @@ RSpec.describe V1::PagesController, type: :controller do
       let(:data) do
         {
           type: 'pages',
-          id:   page.to_param,
-          attributes: {
-            slug: ''
-          }
+          id:   '',
+          attributes: {}
         }
       end
 
@@ -168,7 +166,7 @@ RSpec.describe V1::PagesController, type: :controller do
       it 'is not changing the page' do
         expect {
           patch :update, id: page.to_param, data: data
-        }.to_not change { page.reload.slug }
+        }.to_not change { page.reload.id }
       end
     end
   end

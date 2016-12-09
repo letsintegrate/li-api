@@ -11,7 +11,7 @@ RSpec.describe MenuItem, type: :model do
   #
   it { should have_db_column(:id).of_type :uuid }
   it { should have_db_column(:name).of_type :string }
-  it { should have_db_column(:page_id).of_type :uuid }
+  it { should have_db_column(:page_id).of_type :string }
 
   # Validations
   #

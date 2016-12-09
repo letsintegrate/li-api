@@ -1,4 +1,9 @@
 class Page < ActiveRecord::Base
+  # Relationships
+  #
+  has_many :menu_items
+  has_many :widgets
+
   # Translations
   #
   translates :title
@@ -6,5 +11,5 @@ class Page < ActiveRecord::Base
 
   # Validations
   #
-  validates :slug, presence: true, uniqueness: { case_sensitive: false }
+  validates :id, presence: true, uniqueness: { case_sensitive: false }
 end

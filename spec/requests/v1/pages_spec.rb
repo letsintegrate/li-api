@@ -49,7 +49,8 @@ RSpec.describe "Pages", type: :request do
     it 'is unprocessable' do
       data = {
         type: 'pages',
-        attributes: FactoryGirl.attributes_for(:page, slug: '')
+        id: '',
+        attributes: {}
       }
       post v1_pages_path, { data: data }, authorization: authorization
       expect(response).to be_unprocessable
@@ -90,7 +91,7 @@ RSpec.describe "Pages", type: :request do
       data = {
         type: 'pages',
         attributes: {
-          slug: ''
+          id: ''
         }
       }
       patch v1_page_path(id: page.id), { data: data }, authorization: authorization

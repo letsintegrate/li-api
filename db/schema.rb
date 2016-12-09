@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205121350) do
+ActiveRecord::Schema.define(version: 20161206111910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 20161205121350) do
   add_index "appointments", ["offer_time_id"], name: "index_appointments_on_offer_time_id", using: :btree
   add_index "appointments", ["reminder_sent"], name: "index_appointments_on_reminder_sent", using: :btree
 
+  create_table "images", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "location_translations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "location_id", null: false
     t.string   "locale",      null: false
@@ -71,7 +77,7 @@ ActiveRecord::Schema.define(version: 20161205121350) do
 
   create_table "menu_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
-    t.uuid     "page_id"
+    t.string   "page_id"
     t.integer  "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -159,7 +165,7 @@ ActiveRecord::Schema.define(version: 20161205121350) do
   end
 
   create_table "page_translations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "page_id",    null: false
+    t.string   "page_id",    null: false
     t.string   "locale",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -170,13 +176,10 @@ ActiveRecord::Schema.define(version: 20161205121350) do
   add_index "page_translations", ["locale"], name: "index_page_translations_on_locale", using: :btree
   add_index "page_translations", ["page_id"], name: "index_page_translations_on_page_id", using: :btree
 
-  create_table "pages", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "slug"
+  create_table "pages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "regions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
@@ -199,6 +202,33 @@ ActiveRecord::Schema.define(version: 20161205121350) do
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
+  create_table "widget_translations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "widget_id",               null: false
+    t.string   "locale",                  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.jsonb    "data",       default: {}
+    t.text     "content"
+  end
+
+  add_index "widget_translations", ["locale"], name: "index_widget_translations_on_locale", using: :btree
+  add_index "widget_translations", ["widget_id"], name: "index_widget_translations_on_widget_id", using: :btree
+
+  create_table "widgets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "container_name"
+    t.string   "type"
+    t.string   "page_id"
+    t.integer  "position"
+    t.jsonb    "global_data",    default: {}
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "widgets", ["container_name"], name: "index_widgets_on_container_name", using: :btree
+  add_index "widgets", ["page_id"], name: "index_widgets_on_page_id", using: :btree
+  add_index "widgets", ["position"], name: "index_widgets_on_position", using: :btree
+  add_index "widgets", ["type"], name: "index_widgets_on_type", using: :btree
+
   add_foreign_key "appointments", "locations"
   add_foreign_key "appointments", "offer_times"
   add_foreign_key "appointments", "offers"
@@ -208,4 +238,5 @@ ActiveRecord::Schema.define(version: 20161205121350) do
   add_foreign_key "offer_locations", "locations"
   add_foreign_key "offer_locations", "offers"
   add_foreign_key "offer_times", "offers"
+  add_foreign_key "widgets", "pages"
 end

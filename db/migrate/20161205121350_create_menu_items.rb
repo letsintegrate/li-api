@@ -2,7 +2,7 @@ class CreateMenuItems < ActiveRecord::Migration
   def change
     create_table :menu_items, id: :uuid do |t|
       t.string :name
-      t.references :page, index: true, foreign_key: true, type: :uuid
+      t.references :page, index: true, foreign_key: true, type: :string
       t.integer :position
 
       t.timestamps null: false

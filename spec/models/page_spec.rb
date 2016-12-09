@@ -7,8 +7,12 @@ RSpec.describe Page, type: :model do
 
   # Attributes
   #
-  it { should have_db_column(:id).of_type :uuid }
-  it { should have_db_column(:slug).of_type :string }
+  it { should have_db_column(:id).of_type :string }
+
+  # Relationships
+  #
+  it { should have_many(:menu_items) }
+  it { should have_many(:widgets) }
 
   # Translated attributes
   #
@@ -23,8 +27,8 @@ RSpec.describe Page, type: :model do
 
   # Validations
   #
-  it { should validate_presence_of :slug }
-  it { should validate_uniqueness_of(:slug).case_insensitive }
+  it { should validate_presence_of :id }
+  it { should validate_uniqueness_of(:id).case_insensitive }
 
   # Methods
   #

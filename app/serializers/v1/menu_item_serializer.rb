@@ -1,6 +1,6 @@
 module V1
   class MenuItemSerializer < BaseSerializer
-    attributes :id, :name
+    attributes :id, :name, :position
 
     # Relationships
     belongs_to_link :page

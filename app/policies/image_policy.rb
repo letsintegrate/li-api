@@ -1,4 +1,4 @@
-class PagePolicy < ApplicationPolicy
+class ImagePolicy < ApplicationPolicy
   def create?
     user.present?
   end
@@ -12,11 +12,11 @@ class PagePolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    user.nil? ? super : %i(id)
+    user.nil? ? super : %i()
   end
 
   def whitelisted_attributes
-    user.nil? ? super : %i(title_translations content_translations)
+    user.nil? ? super : %i(file)
   end
 
   class Scope < Scope
