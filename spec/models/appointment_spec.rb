@@ -63,7 +63,7 @@ RSpec.describe Appointment, type: :model do
       expect(appointment).to be_valid
     end
 
-    it 'fails with same email address within a week' do
+    it 'fails with same email address within a month' do
       subject     = FactoryGirl.create(:appointment, created_at: 1.hour.from_now)
       Timecop.freeze(5.days.from_now) do
         appointment = FactoryGirl.build(:appointment, email: subject.email)
@@ -71,9 +71,9 @@ RSpec.describe Appointment, type: :model do
       end
     end
 
-    it 'succeeds with same email address but more than a week later' do
+    it 'succeeds with same email address but more than one month later' do
       subject     = FactoryGirl.create(:appointment, created_at: 1.hour.from_now)
-      Timecop.freeze(8.days.from_now) do
+      Timecop.freeze(32.days.from_now) do
         appointment = FactoryGirl.build(:appointment, email: subject.email)
         expect(appointment).to be_valid
       end

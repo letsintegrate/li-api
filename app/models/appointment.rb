@@ -25,7 +25,7 @@ class Appointment < ActiveRecord::Base
   scope :valid, -> { where.not(confirmed_at: nil).where(canceled_at: nil) }
 
   def self.uniqueness_time_frame
-    where('appointments.created_at >= ?', 1.week.ago)
+    where('appointments.created_at >= ?', 1.month.ago)
   end
 
   def self.today
