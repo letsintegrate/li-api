@@ -5,4 +5,5 @@ class OfferItem < ActiveRecord::Base
   belongs_to :location
   belongs_to :offer_time
   belongs_to :offer
+  belongs_to :region
 end
