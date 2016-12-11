@@ -3,12 +3,13 @@ namespace :db do
   task :update_views => :environment  do
     puts "* Re-creating offer_items view ... "
     select = Offer.select('
-      uuid_generate_v4() AS id,
+      "offer_times"."id" AS id,
       "locations"."id" AS location_id,
       "offers"."id" AS offer_id,
       "offer_times"."id" AS offer_time_id,
       "locations"."name" AS name,
-      "offer_times"."time" AS time
+      "offer_times"."time" AS time,
+      "locations"."region_id" AS region_id
     ').joins(:locations, :offer_times)
     .confirmed
     .not_canceled

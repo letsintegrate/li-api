@@ -3,8 +3,9 @@ module V1
     attributes :id, :name, :time
 
     # Relationships
+    belongs_to_link :location
     belongs_to_link :offer
     belongs_to_link :offer_time
-    belongs_to_link :location
+    belongs_to_link :region
   end
 end
